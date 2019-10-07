@@ -210,9 +210,8 @@ cleandata <- dataWQ
 
 
 #save as rds
-saveRDS(cleandata, file = "clean_water_quality_data.rds")
+saveRDS(cleandata, file = "./data/processed_data/clean_water_quality_data.rds")
 
-# save data as RDS
 # I suggest you save your processed and cleaned data as RDS or RDA/Rdata files. 
 # This preserves coding like factors, characters, numeric, etc. 
 # If you save as CSV, that information would get lost.
