@@ -1,4 +1,23 @@
 # Overview
+To begin replication, first run the cleaning script. This script will produce the processed data, which can be found in the processed data folder.
+The supplementary material - cleaning script provides more information on how decisions were made regarding cleaning and the LOD table.
+The manuscript RMD. In this file we will load the processed data. Currently this RMD file provides some background, in addition to the materials and methods. 
+Date exploration - including some figures which may be used in the publication - are found in the exploratory data script. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 A template file and folder structure for a data analysis project/paper done with R/Rmarkdown/Github. 
 
