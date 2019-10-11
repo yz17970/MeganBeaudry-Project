@@ -1,3 +1,7 @@
+MB EDITS - PLEASE FOLLOW: First run the processing scipt in the processing code folder. Then run the exploratory analysis script in the analyses folder.
+
+
+
 Place your various R or Rmd scripts in the appropriate folders.
 
 You can either have fewer large scripts, or multiple scripts that do only specific actions. Those can be R scripts or Rmd files. In either case, document the scripts and what goes on in them so well that someone else (including future you) can easily figure out what is happening.
