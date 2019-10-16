@@ -1,14 +1,17 @@
-# Overview
-To begin replication, first run the cleaning script. This script will produce the processed data, which can be found in the processed data folder.
-The supplementary material - cleaning script provides more information on how decisions were made regarding cleaning and the LOD table.
-The manuscript RMD. In this file we will load the processed data. Currently this RMD file provides some background, in addition to the materials and methods. 
-Date exploration - including some figures which may be used in the publication - are found in the exploratory data script. 
+This is the class project for Megan Beaudry.
 
+This data was collected by myself during my Master of Science at the Univeristy of Alberta. 
+This is water quality data Alberta. This project focuses specifically on Arcobacter butzleri. 
 
+All code, figures, and text are reproducible from various subfolders within the project directory.
 
+Raw Data can be found in the data folder under the subfolder raw_data. THe only raw data that was cleaned was the "10-2-19raw data epid project". This file is a cvs. Another raw data table is 10-8-19 LOD95 Table. This data table may go to supplemental material.
 
+Processed data can be found in the processed data folder under the subfolder processed_data. This data is made by the processing r script.  
 
+Processing code can be found in the code folder under the subfolder processing code and is an r script titled "10-16-19 processing script 3". Instructions for running the processing code can be found in the ReadMe file in the folder code.
 
+Analysis code can be found in the folder code under the subfolder analysis code. Exploratory analysis is an rmd file titled "10-16-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in both exploratory scripts are saved as png files under the folder results.
 
 
 

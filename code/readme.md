@@ -1,14 +1,5 @@
-MB EDITS - PLEASE FOLLOW: First run the processing scipt in the processing code folder. Then run the exploratory analysis script in the analyses folder.
+Processing:
+To run the processing code please go to the processing_code folder. This code cleans and wrangles the data. Run this code by selecting "run all". Inside this code there is a breakdown of the reasoning for each cleaning step.
 
-
-
-Place your various R or Rmd scripts in the appropriate folders.
-
-You can either have fewer large scripts, or multiple scripts that do only specific actions. Those can be R scripts or Rmd files. In either case, document the scripts and what goes on in them so well that someone else (including future you) can easily figure out what is happening.
-
-The scripts should load the appropriate data (e.g. raw or processed), perform actions, and save results (e.g. processed data, figures, computed values) in the appropriate folders. Document somewhere what inputs each script takes and where output is placed. 
-
-If scripts need to be run in a specific order, document this. Either as comments in the script, or in a separate text file such as this. Ideally of course in both locations.
-
-
-Depending on your specific project, you might want to have further sub-folders.
+Analysis: 
+Exploratory analysis code is saved under "10-16-19 exploratory analysis" as both an rmd and word document for viewing. This script focuses on looking at relationships between our pathogen of interest, Arcobacter butzleri and other contaminents or water quality indicators. These are not final figures, but rather an exploration of the data. 
