@@ -15,7 +15,7 @@ csl: ../apa.csl
 
 ```{r}
 #load clean data
-clean_water_quality_data <- readRDS("~/Desktop/epid8060fall2019/MeganBeaudry-Project_WQ/data/processed_data/clean_water_quality_data.rds")
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
 ```
 
 

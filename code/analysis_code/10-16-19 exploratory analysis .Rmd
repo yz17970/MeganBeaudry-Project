@@ -1,5 +1,5 @@
 ---
-title: "10-8-19 exploratory analysis"
+title: "10-16-19 exploratory analysis"
 author: "Megan Beaudry"
 date: "10/8/2019"
 output:
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ##Prelimnary Loading
 Load clean data
 ```{r}
-clean_water_quality_data <- readRDS("~/Desktop/epid8060fall2019/MeganBeaudry-Project_WQ/data/processed_data/clean_water_quality_data.rds")
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
 ```
 
 Load libraries

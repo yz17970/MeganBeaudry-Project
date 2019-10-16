@@ -265,7 +265,7 @@ shapiro.test(dataWQ$MuBac)
 shapiro.test(dataWQ$Rum2Bac)
 shapiro.test(dataWQ$A_butzleri_HSP60)
 shapiro.test(dataWQ$Salmonella_spp_InvA)
-shapiro.test(cdataWQ$Campylobacter_spp_Van_Dkye)
+shapiro.test(dataWQ$Campylobacter_spp_Van_Dkye)
 shapiro.test(dataWQ$MuBac)
 
 #Unfortunately, this replaces the 0 with -infinity. We want those back
