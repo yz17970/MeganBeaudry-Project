@@ -10,7 +10,7 @@ library(lubridate)
 
 #load data. path is relative to project directory.
 library(RCurl)
-data <- getURL("https://raw.githubusercontent.com/epid8060fall2019/MeganBeaudry-Project_WQ/master/data/raw_data/10-2-19raw%20data%20epid%20project.csv")
+data <- getURL("https://raw.githubusercontent.com/epid8060fall2019/MeganBeaudry-Project_WQ/master/data/raw_data/10-02-19%20raw%20data%20epid%20project.csv")
 dataWQ <- read.csv(text = data, header = FALSE, stringsAsFactors = FALSE)
 str(dataWQ)
 
@@ -312,7 +312,12 @@ sapply(dataWQ, class)
 #Good all are numeric 
 
 #Now to deal with the dates
-dataWQ$Date_Sampled <- as.Date(as.character(dataWQ$Date_Sampled))
+
+library(lubridate)
+library(tidyverse)
+
+
+dataWQ$Date_Sampled <- as.Date(dataWQ$Date_Sampled, format = "%m/%d/%Y")
 class(dataWQ$Date_Sampled)
 
 

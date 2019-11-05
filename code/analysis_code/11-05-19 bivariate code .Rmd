@@ -140,6 +140,23 @@ grid.arrange(p)
 dev.off()
 ```
 
+```{r by ponds - MST - percent}
+xtabs(~Pond+HF183_y_n, data=new_wq)
+HF183_y_n_pond<- rowPerc(xtabs(~Pond+HF183_y_n, data=new_wq))
+png("../../results/HF183_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(HF183_y_n_pond)
+grid.arrange(p)
+dev.off()
+
+xtabs(~Pond+HumM2_y_n, data=new_wq)
+HumM2_y_n_pond<- rowPerc(xtabs(~Pond+HumM2_y_n, data=new_wq))
+png("../../results/HumM2_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(HumM2_y_n_pond)
+grid.arrange(p)
+dev.off()
+
+
+```
 
 ```{r campy by site - percent}
 #Campy positives by site 
@@ -275,6 +292,9 @@ Country_Hills <- subset(clean_data, Pond == "Country_Hills")
 
 ```{r Temporal Trend: HF183 at each pond by site}
 #Need to fix as some of it is getting cut off 
+#want to add arrows pointing at holidays (https://www.r-bloggers.com/point-arrows-to-specific-parts-of-the-data-2/)
+#tried this: geom_segment(aes(x = Date_Sampled, y = 5.5, xend = Date_Sampled, yend = 4.5),
+                  #arrow = arrow(length = unit(0.5, "cm")))
 
 HF183_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HF183, color = Sampling_Site)) + geom_line() +
   geom_point() +
@@ -283,7 +303,7 @@ HF183_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HF183, color = 
   theme_bw() +
   ylim(3.2, 6.3) +
   theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
-  labs(color = "McCall Sampling Sites")
+  labs(color = "McCall Sampling Sites") 
   
 
 HF183_at_McCall
@@ -363,6 +383,12 @@ ggsave(filename = "../../results/Arco_at_Inverness.png",plot = Arco_at_Inverness
 Arco_all_arranged <- grid.arrange(Arco_at_Country_Hills, Arco_at_Inverness, Arco_at_McCall)
 
 ggsave(filename = "../../results/Arco_all_arranged.png",plot = Arco_all_arranged)
+
+#NEED TO ADD ARROWS FOR RAINFALL FOR ARCO AT MCCALL
+```
+
+
+```{r Temp Trend: Arco at each pond by site}
 ```
 
 
@@ -457,6 +483,22 @@ HumM2_all_arranged <- grid.arrange(CG01_at_Country_Hills, CG01_at_Inverness, CGO
 ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
 
 ```
+```{r Temp Trend - Seagull - McCall}
+Seagull_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "McCall Sampling Sites")
+
+
+Seagull_at_McCall
+ggsave(filename = "../../results/LeeSg_at_McCall.png",plot = Seagull_at_McCall)
+
+```
 
 ```{r}
 Inverness_bird_Arco <- ggplot(Inverness) +
@@ -477,8 +519,68 @@ Inverness_bird_Arco
 
 RASTER PLOTS
 ```{r}
-raster_by_site_do <- ggplot(clean_data), aes(x = Date_Sampled, y = location, fill = dissolved_oxygen)) + geom_raster()
-raster_by_site_do
+raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183)) + geom_raster()
+raster_by_pond_HF183
+
+raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE)) + geom_raster()
+raster_by_pond_Entero
+
+
+ggplot(clean_data, aes(Date_Sampled, Pond))
 ```
+
+HEAT MAP
+```{r}
+heatmap <- heatmap(clean_data, aes(x = , y = pond)) + geom_tile(aes(fill = HF183))
+```
+
+COOCCURANCE PLOTS AND FIGURES
+```{r Arco and HF183 co occurance}
+#Two way tables
+table_arco_human <- table(new_wq$arco_y_n, new_wq$HF183_y_n)
+table_arco_human
+#shows the numbers
+margin.table(table_arco_human)
+margin.table(table_arco_human, 1)
+margin.table(table_arco_human, 2)
+#gets the proportions (percents)
+table_arco_human/margin.table(table_arco_human)
+prop.table(table_arco_human) #prop.table is a command that will convert any table to proportions
+#the yes-yes column in this table gives us the total number of samples positive for both variables out of all samples 
+#mosiac plot of table
+mosaicplot(table_arco_human, shade = TRUE, main= "Two-way table of samples that are positive for Arcobacter butzleri and HF183", xlab = "Arcobacter butzlier", ylab = "HF183")
+#instruction from: https://www.cyclismo.org/tutorial/R/tables.html 
+mosaicplot(table_arco_human, sort=c(2,1))
+
+
+```
+
+
+```{r}
+assoc_1 <- ggplot(data = clean_data) +
+  geom_mosaic(aes(x = A_butzleri_HSP60_A, fill=HF183), divider="hbar", na.rm=TRUE) + labs(x=" ", title='divider = "hbar"') 
+
+
+
+   
+```
+
+T-TEST
+```{r}
+clean_data %>%
+  t.test(A_butzleri_HSP60, HF183)
+
+```
+
+
+LINEAR MODEL - SIMPLE
+```{r}
+#http://r-statistics.co/Linear-Regression.html
+linearMod <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
+print(linearMod)
+modelSummary <- summary(linearMod)
+
+```
+
 
 

@@ -20,6 +20,7 @@ library(ggplot2)
 library(ggthemes)
 library(RColorBrewer)
 library(dplyr)
+library(cowplot)
 ```
 
 
@@ -116,6 +117,9 @@ ggsave(filename = "../../results/All_Box_HF183.png", plot = All_Box_HF183)
 
 
 ```{r HF183 box and whisker by site}
+#labels are cut off in grid.arrange plot (title: HF183_boxplots_all_ponds)
+#add legend saying what dotted line is 
+
 McCall_bysite_box_HF183 <- clean_water_quality_data %>%
   filter(Pond == "McCall_Lake") %>%
   ggplot(aes(x = "", y = HF183)) + 
@@ -123,7 +127,9 @@ McCall_bysite_box_HF183 <- clean_water_quality_data %>%
   coord_cartesian(ylim = c(0, 6)) +
   facet_wrap(~ Sampling_Site) +
   theme_bw() +
-  labs (x = "HF183", y = "Log10 Copies/100mL")
+  labs (x = "HF183", y = "Log10 Copies/100mL") +
+ geom_hline(yintercept = 3.32, colour = "red", linetype = "dotted")
+
 McCall_bysite_box_HF183
 ggsave(filename = "../../results/McCall_bysite_box_HF183.png", plot = McCall_bysite_box_HF183)
 
@@ -135,7 +141,8 @@ Country_Hills_bysite_box_HF183 <- clean_water_quality_data %>%
   coord_cartesian(ylim = c(0, 6)) +
   facet_wrap(~ Sampling_Site) +
   theme_bw() +
-  labs (x = "HF183", y = "Log10 Copies/100mL")
+  labs (x = "HF183", y = "Log10 Copies/100mL") +
+  geom_hline(yintercept = 3.32, colour = "red", linetype = "dotted")
 Country_Hills_bysite_box_HF183
 ggsave(filename = "../../results/Country_Hills_bysite_box_HF183.png", plot = Country_Hills_bysite_box_HF183)
 
@@ -146,9 +153,16 @@ Inverness_bysite_box_HF183 <- clean_water_quality_data %>%
   coord_cartesian(ylim = c(0, 6)) +
   facet_wrap(~ Sampling_Site) +
   theme_bw() +
-  labs (x = "HF183", y = "Log10 Copies/100mL")
+  labs (x = "HF183", y = "Log10 Copies/100mL") +
+  geom_hline(yintercept = 3.32, colour = "red", linetype = "dotted")
 Inverness_bysite_box_HF183
 ggsave(filename = "../../results/Inverness_bysite_box_HF183.png", plot = Inverness_bysite_box_HF183)
+
+HF183_boxplots_all_ponds <- grid.arrange(Inverness_bysite_box_HF183, Country_Hills_bysite_box_HF183, McCall_bysite_box_HF183, nrow = 1)
+
+
+ggsave(filename = "../../results/HF183_boxplots_all_ponds.png", plot = HF183_boxplots_all_ponds)
+
 ```
 
 VIOLIN PLOTS

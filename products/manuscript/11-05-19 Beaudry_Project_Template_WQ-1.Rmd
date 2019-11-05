@@ -110,7 +110,7 @@ The data was cleaned to format the variables (e.g., DNQ, not detects, >2419.6) i
 *-----* = TABLE/FIGURE NUMBER
 
 
-## Univariate analysis
+## Water quality
 A high-level descriptive overview of the bacteriological water quality in each of these ponds, and at each of the sites, is provided in *-----*, and is based on the percentage of samples violating water quality standards/guidelines, as evaluated against: the USEPA’s recreational water quality guideline for Enterococcus by molecular methods (Environmental Protection Agency, 2012); and Alberta’s former recreational water quality standards based on thermotolerant coliform concentrations (*-----*).  A number of observations are worth noting from this high-level analysis. 
 ```{r}
 knitr::include_graphics("../../results/entero_pond_table.png")
@@ -130,7 +130,48 @@ Bacteriological water quality indicators were further assessed for all sampling 
 ```{r}
 knitr::include_graphics("../../results/McCall_WQ_plots.png")
 ```
+Median levels of Enterococcus at the ML2 site approximated 3.1 log10 CCE/100 mL, whereas at all other sampling sites in McCall Lake (i.e., ML1, Inlet 3/4, and PR60), the median occurrence was almost an order of magnitude lower (~ 2.3 log10 CCE/100 mL) (*____*). Incidentally, ML2 also had the largest overall interquartile variation in the concentration of Enterococcus during the study season (*---*). Concentrations of thermotolerant coliforms were also high at this site and followed a similar trend to that of Enterococcus (*---*).
 
+It is important to note that in most cases for Enterococcus and E. coli at sites other than ML2, there were several outliers in the data set (*____*).Although outliers may reflect recent localized contamination events not necessarily reflective of overall water quality in the stormwater pond (e.g., aquatic birds in one area of the pond), their occurrence could also reflect the periods of peak contamination in stormwater ponds, and for which this effect may be contingent on temporal variables associated with water quality (e.g., first flush from storms, to be discussed later). Specifically, outliers for Enterococcus concentrations were represented by values higher than ~3.5 log10 for Inlet 3/4, ~3.75 log10 for ML1, and ~4 log10 for PR60. 
+
+This analysis revealed that stormwater ponds and stormwater-impacted urban rivers in southern Alberta, Canada, do not often meet existing guidelines or standards as laid out by USEPA, Health Canada, and Alberta Environments and Parks in terms of recreational water quality, surface water quality and/or irrigation water quality. For this reason, we sought to determine the potentiasl sources of poor water quality using microbial source tracking assays for humans, ruminants, dogs, gull, geese and muskrat.
+
+Calgary stormwater ponds were mainly impacted by human and gull feces (Table 4-1). The human specific markers, HF183 and HumM2, were detected at 27% and 10%, of samples, respectively (Table 4-1). The gull specific marker (i.e., LeeSg) was found in 9% of samples (Table 4-1). Of these, the more dominant source of fecal pollution was from humans (Table 4-1). All other host-specific markers (i.e., dog, Canada geese, muskrat, and ruminants) were detected in <2% of pond samples (Table 4-1).
+
+```{r}
+#ADD TABLES THAT SHOW ALL THE SOURCE TRACKING DATA
+```
+
+In congruence with finding that ML2 at McCall Lake was the most frequently contaminated site with human feces (*ABOVE TABLE*), this site also had the greatest median concentration of the human fecal marker HF183 (i.e., 4.2 log10 copies/100 mL) observed across all three stormwater ponds and sampling sites in these ponds (*BELOW FIGURE*). In comparison, all other McCall Lake sampling sites had a median concentration of HF183 at ~3.4 log10 copies/100 mL (i.e., close to the quantification limit of the assay (red dotted line)) (*BELOW FIGURE*). Specifically, at ML2, there was a single outlier in the data set for HF183, represented by a value of 6.0 log10 copies/100 mL (*BELOW FIGURE*). However, although ML2 represented the most consistently contaminated sampling site with human fecal contamination at McCall Lake, all other sites in this thesis appeared to be at risk for human fecal contamination (*BELOW FIGURE*). 
+
+```{r}
+knitr::include_graphics("../../results/HF183_boxplots_all_ponds.png")
+```
+
+
+Temporal fluctuations in human fecal pollution markers were noted between the stormwater ponds, and among the sampling sites within a stormwater pond (*Figure below*). 
+```{r}
+knitr::include_graphics("../../results/HF183_all_arranged.png")
+```
+
+Of all stormwater pond sampling sites, ML2 at McCall Lake experienced the most consistent temporal pattern of human fecal contamination throughout the sampling season. For example, within the 41 sampling dates, over the 21-week sampling season, there were only two sampling dates in which we did not detect HF183 at ML2 (i.e., July 4th and August 28th) (*FIGURE ABOVE*). However, there were other sampling dates when levels of HF183 decreased to a non-quantifiable level at ML2 (i.e., May 23rd, May 25th, August 8th, and August 14th). Interestingly, this pattern tended to occur after long weekends (i.e., holidays occurring on the following Mondays: May 22nd, July 3rd, August 7th, and September 3rd), and three of these long weekends corresponded to decreases in human fecal contamination markers on the following day of sampling (i.e., May 23rd, July 4th, and August 8th, which were Tuesdays). This suspicious temporal pattern of contamination suggested that the levels of human fecal contamination may have been related to industrial/commercial activities, as the levels of human fecal contamination decreased during times when industries/commercial premises may have been closed for the holidays. 
+
+Human fecal contamination at the sampling sites was often highly variable between sequential sampling dates. For example, at Inlet PR60 in McCall Lake, within a two-week span, biweekly HF183 values fluctuated between undetectable levels (i.e., June 29th and July 6th) and 4.3 log10 copies/100mL (i.e., July 4th) and 3.5 log10 copies/100mL (i.e., July 10th). This high variability in human fecal contamination markers over sequential sampling dates, elicits potential concerns regarding the sporadic nature of contamination and the stability of water quality in the urban stormwater ponds.
+
+```{r}
+knitr::include_graphics("../../results/HumM2_at_McCall.png")
+```
+
+HumM2 was detected less frequently and at lower concentrations in all of the urban stormwater ponds tested. ML2 had the highest occurrence of HumM2 detections of all McCall Lake sampling sites, which corresponded with the findings with the human fecal contamination marker HF183 (*FIGURE ABOVE*). Furthermore, Inlet ¾ had the lowest occurrence of HF183 in McCall Lake, and was also tied for the lowest occurrence of HumM2 in McCall Lake. 
+
+In addition to seeing temporal and spatial trends in human fecal contamination, temporal and spatial trends in seagull contamination were also noted. In McCall Lake, seagull fecal contamination was considered to be a sporadic, highly variable, source of pollution. Seagull contamination was first noted in McCall Lake at the end of June, and tended to be episodic (*FIGURE BELOW*). For example, at ML2, seagull fecal contamination was detected on July 12th and at a level of 4.1 log10 copies/100 mL, and then it was not detected at quantifiable levels again until August 8th (i.e., 3.7 log10 copies/100 mL) (*FIGURE BELOW*). Although ML2 was most frequently positive for detection of seagull fecal contamination among all sampling sites, this pattern of sporadic, highly variable findings were also noted at the other McCall Lake sites (i.e., PR60, ML1, and Inlet ¾). 
+
+```{r}
+knitr::include_graphics("../../results/LeeSg_at_McCall.png")
+```
+
+Overall, there were patterns of similarity in seagull contamination regarding temporal trends. These patterns were similar across the sampling sites in McCall Lake, which was noted for two key reasons. Firstly, there were three instances where seagull fecal contamination occurred concurrently at three or more McCall Lake sites (i.e., July 10th, August 14th, and September 13th). Secondly, on the aforementioned sampling dates, the levels of seagull fecal contamination detected were all within one order of magnitude of each other. These patterns suggested that a potential environmental variable linked the contamination along the sampling sites at McCall Lake. 
+One potential environmental variable examined was antecedent rainfall. Only three dates (i.e., May 25th, June 8th, and September 13th) had greater than 10 mm of rain. Seagull fecal contamination was detected on only one of the sampling dates (September 13th), though at three sampling sites on this date. (*MUST ADD RAINFALL INFO*)
 
 A high-level descriptive overview of the frequency of several enteric bacterial pathogens (i.e., A. butzleri, Campylobacter spp., Salmonella spp., and STEC) in each of the Calgary urban stormwater ponds (i.e., McCall Lake, Country Hills Stormwater Facility, and Inverness Stormpond), and at each sampling site within the ponds is provided in *-----*. The most frequently detected bacterial pathogen found in stormwater ponds was A. butzleri, detected in 36% of samples at McCall Lake, 24% of samples at Inverness and 18% of samples at Country Hills (*-----*). The second most common pathogen detected was Campylobacter spp. (4% at Country Hills) and Salmonella spp. (1% at McCall Lake) (*-----*). 
 
@@ -139,7 +180,26 @@ knitr::include_graphics("../../results/arco_pond_table.png")
 knitr::include_graphics("../../results/campy_pond_table.png")
 knitr::include_graphics("../../results/salmonella_pond_table.png")
 ```
+To better understand temporal variation, we further examined patterns of occurrence based on molecular qPCR results. Notable temporal fluctuations in A. butzleri were observed between the urban stormwater ponds, and among the sampling sites within a pond (*BELOW*). We found that at Inlet ¾, in McCall Lake, considerable temporal fluctuations were detected in the levels of A. butzleri between sequential sampling dates. Within a two-week time period (i.e., four sequential sampling dates, June 20th – June 29th), the concentration of A. butzleri varied from being not detected (i.e., below the limit of quantification of 3.5 log10 copies/100 mL) on June 20th, then spiking to 3.9 log10 copies/100 mL on June 22nd, to be not detected on June 27th, and spiking again to 4.3 log10 copies/100 mL on June 29th. 
+```{r}
+knitr::include_graphics("../../results/Arco_all_arranged.png")
+```
 
+We tracked environmental variables that could contribute to temporal fluctuations in A. butzleri concentrations (e.g., antecedent rainfall data, temperature, etc.). Of note, we recorded three sampling dates that had rainfall greater than 10 mm (i.e., May 25th, June 8th, and September 13th, Figure 5 1). We noted that A. butzleri was detected at all McCall Lake sampling sites on several sampling dates, July 10th, August 14th, August 16th, September 13th, of which September 13th had significant rainfall (Figure 5 1). However, on another rainfall date (i.e., May 25th) A. butzleri was not observed at any of the sampling sites, and on June 8th, A. butzleri concentrations reached detectable levels only at the outfalls (i.e., ML1 and ML2). 
+
+```{r}
+##ADD FIGURE OF ARCO AT MCCALL WITH RAINFALL
+```
+
+Due to the prevalence and abundance of A. butzleri contamination, we sought to determine the potential sources of its contamination. Water samples were analyzed by identifying which microbial source tracking markers occurred most often with A. butzleri detections. We found that the most common source of pollution co-occurring with A. butzleri detection was human fecal pollution. The human marker HF183 was present in 43% of A. butzleri positive samples, while the human marker HumM2 was detected in 10% of A. butzleri positive samples (Table 5 6). The second most dominant source of fecal pollution was seagull (i.e., LeeSg), which corresponded to A. butzleri detection in 10% of A. butzleri stormwater positive samples. The only other markers found in conjunction with A. butzleri were for Canada geese (i.e., CGO1) and ruminants (i.e., Rum2Bac), which were detected in 2% and 1% of positive samples, respectively. 
+
+```{r}
+#show co occurance with a heat map or table?? 
+#t-test???
+```
+
+
+#Univariate Analysis 
 _Use a combination of text/tables/figures to explore and describe your data. You should produce plots or tables or other summary quantities for most of your variables. You definitely need to do it for the important variables, i.e. if you have main exposure or outcome variables, those need to be explored. Depending on the total number of variables in your dataset, explore all or some of the others._
 
 ## Bivariate analysis

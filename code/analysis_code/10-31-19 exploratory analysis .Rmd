@@ -345,7 +345,7 @@ How many samples are positive for shigatoxin 2
 Shigatoxin2_bar <- clean_water_quality_data %>%
   ggplot() +
   geom_bar(aes(x = Shigatoxin_2), stat = "count", color = "yellow", fill = "white") +
-  labs(x = "Shiga Toxin 1", y = "Counts") +
+  labs(x = "Shiga Toxin 2", y = "Counts") +
   theme(panel.background = element_rect(fill = "grey85"))
 Shigatoxin2_bar
 ggsave(filename = "../../results/Shigatoxin2_bar.png", plot = Shigatoxin2_bar)
