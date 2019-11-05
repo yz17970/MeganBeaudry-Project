@@ -64,7 +64,8 @@ library(qwraps2)
 options(qwraps2_markup = "markdown")
 
 args(summary_table)
-our_summary1 <-
+
+our_summary2 <-
   list("Human HF183" =
        list("min" = ~ min(cleandata$HF183),
             "max" = ~ max(cleandata$HF183),
@@ -79,13 +80,80 @@ our_summary1 <-
             "median" = ~ median(cleandata$A_butzleri_HSP60)),
        "Canada Goose CG01" =
        list("min" = ~ min(cleandata$CG01),
-            "mas"  = ~ max(cleandata$CG01),
+            "max"  = ~ max(cleandata$CG01),
             "median" = ~ median(cleandata$CG01))
        )
 
-whole <- summary_table(cleandata, our_summary1)
+whole <- summary_table(cleandata, our_summary2)
 whole
+
+png("../../results/summarystats.png", height=400, width=400)
+p<-tableGrob(whole)
+grid.arrange(p)
+dev.off()
 ```
 
+
+```{r}
+cleandata %>%
+  dplyr::select(cleandata$HF183, cleandata$HumM2, cleandata$A_butzleri_HSP60) %>%
+  qsummary(.)
+  
+```
+
+
+BOX AND WHISKER PLOTS
+Data: clean_water_quality_data
+```{r Box and whisker HF183}
+All_Box_HF183 <- ggplot(data = clean_water_quality_data, aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  facet_wrap(~ Pond) +
+  theme_bw() + 
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+All_Box_HF183
+ggsave(filename = "../../results/All_Box_HF183.png", plot = All_Box_HF183)
+```
+
+
+```{r HF183 box and whisker by site}
+McCall_bysite_box_HF183 <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot(aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+McCall_bysite_box_HF183
+ggsave(filename = "../../results/McCall_bysite_box_HF183.png", plot = McCall_bysite_box_HF183)
+
+
+Country_Hills_bysite_box_HF183 <- clean_water_quality_data %>%
+  filter(Pond == "Country_Hills") %>%
+  ggplot(aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+Country_Hills_bysite_box_HF183
+ggsave(filename = "../../results/Country_Hills_bysite_box_HF183.png", plot = Country_Hills_bysite_box_HF183)
+
+Inverness_bysite_box_HF183 <- clean_water_quality_data %>%
+  filter(Pond == "Inverness") %>%
+  ggplot(aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+Inverness_bysite_box_HF183
+ggsave(filename = "../../results/Inverness_bysite_box_HF183.png", plot = Inverness_bysite_box_HF183)
+```
+
+
+```{r}
+
+```
 
 

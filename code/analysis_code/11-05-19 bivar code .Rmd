@@ -368,10 +368,69 @@ HumM2_all_arranged <- grid.arrange(HumM2_at_Country_Hills, HumM2_at_Inverness, H
 
 ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
 ```
+
+```{r Temp trend: CG01 at each pond by site}
+
+CGO1_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  labs(color = "McCall Sampling Sites")
+  
+
+CGO1_at_McCall
+ggsave(filename = "../../results/CGO1_at_McCall.png",plot = CGO1_at_McCall)
+
+CG01_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  labs(color = "Country Hills Sampling Sites")
+
+CG01_at_Country_Hills  
+ggsave(filename = "../../results/_at_Country_Hills.png",plot = CG01_at_Country_Hills)
+
+CG01_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  labs(color = "Inverness Sampling Sites")
+  
+
+CG01_at_Inverness
+ggsave(filename = "../../results/CG01_at_Inverness.png",plot = CG01_at_Inverness)
+
+HumM2_all_arranged <- grid.arrange(CG01_at_Country_Hills, CG01_at_Inverness, CGO1_at_McCall)
+
+ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
+
 ```
 
+```{r}
+Inverness_bird_Arco <- ggplot(Inverness) +
+  geom_line(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.4, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 3.58, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
 
-
+Inverness_bird_Arco
+```
 
 
 

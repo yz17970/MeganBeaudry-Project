@@ -351,3 +351,16 @@ Shigatoxin2_bar
 ggsave(filename = "../../results/Shigatoxin2_bar.png", plot = Shigatoxin2_bar)
 ```
 
+
+```{r subsetting by site}
+
+ML2 <- subset(clean_data, Sampling_Site == "Outfall ML2")
+McCall_Lake <- subset(clean_data, Pond == "McCall_Lake")
+
+HF183_at_ML2_1 <- ggplot(ML2, aes(x = Date_Sampled, y = HF183)) + geom_line()
+
+HF183_at_ML2 <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HF183, color = Sampling_Site)) + geom_line()
+
+HF183_at_ML2
+```
+
