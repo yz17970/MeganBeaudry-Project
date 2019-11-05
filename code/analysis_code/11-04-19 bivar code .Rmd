@@ -1,0 +1,48 @@
+---
+title: "Bivariate Analysis"
+author: "Megan Beaudry"
+date: "11/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r library}
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(forcats)
+library(ggthemes)
+library(plotly)
+library(knitr)
+library(naniar)
+library(broom)
+library(gridExtra)
+library(zoo)
+library(ggpubr)
+library(ggplot2)
+library(ggthemes)
+library(RColorBrewer)
+library(dplyr)
+library(caret)
+library(tidyverse)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r load data}
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+#if this happens you need to save the file first cause it do
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

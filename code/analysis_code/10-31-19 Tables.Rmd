@@ -1,0 +1,199 @@
+---
+title: "10-28-19 part 3 analysis"
+author: "Megan Beaudry"
+date: "10/29/2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(RColorBrewer)
+library(dplyr)
+library(caret)
+library(tidyverse)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+#https://cran.r-project.org/web/packages/wql/vignettes/wql-package.html
+```
+
+## Univariate analysis
+_Use a combination of text/tables/figures to explore and describe your data. You should produce plots or tables or other summary quantities for most of your variables. You definitely need to do it for the important variables, i.e. if you have main exposure or outcome variables, those need to be explored. Depending on the total number of variables in your dataset, explore all or some of the others._
+
+```{r}
+#going to rename to a new dataframe here
+new_wq <- clean_water_quality_data
+new_wq$arco_new <- new_wq$A_butzleri_HSP60
+new_wq$HF183_new <- new_wq$HF183
+unique(new_wq$arco_new)
+str(new_wq)
+```
+```{r}
+#convert characters to categorical varaibles
+new_wq$Pond <- as.factor(as.character(new_wq$Pond))
+new_wq$Sampling_Site <- as.factor(as.character(new_wq$Sampling_Site))
+new_wq$Sampling_Site <- as.factor(as.character(new_wq$Sampling_Site))
+str(new_wq)
+```
+
+
+
+
+```{r}
+#want to convert a new column with acro as yes or no to get the percent of the samples positive 
+#lets do arco first
+new_wq <- new_wq %>% mutate(arco_y_n= 
+                      ifelse(arco_new < "3.391993", "no",
+                      ifelse(arco_new > "3.391994", "yes",
+                      "no")))
+#Now HF183 and the rest
+new_wq <- new_wq %>% mutate(HF183_y_n= 
+                      ifelse(HF183_new < "3.329601", "no",
+                      ifelse(HF183_new > "3.329602", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(HumM2_y_n= 
+                      ifelse(HumM2 < "3.847449", "no",
+                      ifelse(HumM2 > "3.847450", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(CG01_y_n= 
+                      ifelse(CG01 < "3.108565", "no",
+                      ifelse(CG01 > "3.108566", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(LeeSg_y_n= 
+                      ifelse(LeeSg < "3.283979", "no",
+                      ifelse(LeeSg > "3.283980", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(Dog3_y_n= 
+                      ifelse(Dog3 < "3.156549", "no",
+                      ifelse(Dog3 > "3.156550", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(MuBac_y_n= 
+                      ifelse(MuBac < "3.554852", "no",
+                      ifelse(MuBac > "3.554853", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(Rum2Bac_y_n= 
+                      ifelse(Rum2Bac < "3.457125", "no",
+                      ifelse(Rum2Bac > "3.457126", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(Salmonella_y_n= 
+                      ifelse(Salmonella_spp_InvA < "3.170848", "no",
+                      ifelse(Salmonella_spp_InvA > "3.170849", "yes",
+                      "no")))
+new_wq <- new_wq %>% mutate(Campy_y_n= 
+                      ifelse(Campylobacter_spp_Van_Dkye < "3.170848", "no",
+                      ifelse(Campylobacter_spp_Van_Dkye > "3.170849", "yes",
+                      "no")))
+```
+
+```{r}
+#Two way tables
+table_arco_human <- table(new_wq$arco_y_n, new_wq$HF183_y_n)
+table_arco_human
+#shows the numbers
+margin.table(table_arco_human)
+margin.table(table_arco_human, 1)
+margin.table(table_arco_human, 2)
+#gets the proportions (percents)
+table_arco_human/margin.table(table_arco_human)
+prop.table(table_arco_human) #prop.table is a command that will convert any table to proportions
+#the yes-yes column in this table gives us the total number of samples positive for both variables out of all samples 
+#mosiac plot of table
+mosaicplot(table_arco_human, main= "Two-way table of samples that are positive for Arcobacter butzleri and HF183", xlab = "Arcobacter butzlier", ylab = "HF183")
+#instruction from: https://www.cyclismo.org/tutorial/R/tables.html 
+mosaicplot(table_arco_human, sort=c(2,1))
+```
+```{r}
+#complex table
+#resource: https://community.rstudio.com/t/creating-a-complex-table-from-a-data-frame/8742
+library('knitr')
+library('kableExtra')
+
+```
+```{r}
+#contigency tables
+table_arco_site <- table(new_wq$arco_y_n, new_wq$Sampling_Site)
+table_arco_site
+
+
+
+#https://dmyee.files.wordpress.com/2016/03/table_workshop.pdf
+library('sjPlot')
+table_arco_site_2 <- sjt.xtab(new_wq$Sampling_Site, new_wq$arco_y_n)
+
+
+
+```
+
+```{r}
+#Do the charts look better as a bar graph
+#http://www.strengejacke.de/sjPlot/reference/sjp.xtab.html
+grp <- sample(27:29, 100, replace = TRUE)
+x <- sample(5, 100, replace = TRUE)
+sjp.xtab(x, grp)
+sjt.xtab(x, grp)
+```
+```{r}
+library('tigerstats')
+library('formattable')
+#https://homerhanumat.github.io/tigerstats/xtabs.html
+xtabs(~Sampling_Site+arco_y_n, data=new_wq)
+arco_site_3<- rowPerc(xtabs(~Sampling_Site+arco_y_n, data=new_wq))
+##as.data.frame(arco_site_3)
+#formattable didnt do anything
+plain <- formattable(arco_site_3)
+plain_2 <- formatter("span", style = x ~ style(color = blue))
+knitr::kable(arco_site_3)
+```
+
+
+```{r}
+library('sjmisc')
+#Plot a linear model
+fit <- lm(new_wq$A_butzleri_HSP60 ~ new_wq$HF183 +
+            new_wq$HumM2)
+sjp.lm(fit, grid.breaks = 2)
+```
+
+
+```{r}
+#Another try at a graph
+ggplot(new_wq) +
+  geom_bar(mapping = aes(x = Date_Sampled, y = arco_y_n, color = "purple", stat = "stat count"))
+```
+
+
+```{r}
+#add a new column
+arco_by_site <- c()
+#first lets add a virable using mutate
+new_wq <- mutate(new_wq, arco_by_site = A_butzleri_HSP60/Sampling_Site)
+clean_water_quality_data$percent_arco_site <- clean_water_quality_data$A_butzleri_HSP60/clean_water_quality_data$Sampling_Site
+arcobacter_summary_table <- table(clean_water_quality_data$Sampling_Site, clean_water_quality_data$A_butzleri_HSP60)
+arcobacter_summary_table
+```
+
+
+
+## Bivariate analysis
+_Create plots or tables and compute simple statistics (e.g. t-tests, simple regression model with 1 predictor, etc.) to look for associations between your outcome(s) and each individual predictor variable_
+
+
+## Full analysis
+_Use one or several suitable statistical/machine learning methods to analyze your data and to produce meaningful figures, tables, etc. This might again be code that is best placed in one or several separate R scripts that need to be well documented. You can then load the results produced by this code_

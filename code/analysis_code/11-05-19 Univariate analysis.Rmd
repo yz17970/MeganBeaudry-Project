@@ -1,0 +1,91 @@
+---
+title: "11-05-19 Univariate Anaysis"
+author: "Megan Beaudry"
+date: "11/5/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r load library}
+library(ggplot2)
+library(ggthemes)
+library(RColorBrewer)
+library(dplyr)
+```
+
+
+
+```{r pressure, echo=FALSE}
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+cleandata <- clean_water_quality_data 
+```
+
+
+Summary Statistics
+Here are the summary statistics for each of the important variables
+```{r}
+summary(clean_water_quality_data$Rainfall)
+summary(clean_water_quality_data$HF183)
+summary(clean_water_quality_data$HumM2)
+summary(clean_water_quality_data$CG01)
+summary(clean_water_quality_data$LeeSg)
+summary(clean_water_quality_data$Dog3)
+summary(clean_water_quality_data$MuBac)
+summary(clean_water_quality_data$Rum2Bac)
+summary(clean_water_quality_data$A_butlzeri_HSP60)
+summary(clean_water_quality_data$Salmonella_spp_InvA)
+summary(clean_water_quality_data$Campylobacter_spp_Van_Dkye)
+summary(clean_water_quality_data$Enterococcus_CCE)
+summary(clean_water_quality_data$total_coliforms)
+summary(clean_water_quality_data$E_coli)
+summary(clean_water_quality_data$Enteroalert)
+```
+
+```{r}
+library(Hmisc)
+describe(cleandata)
+```
+
+
+Summary stats table for publication
+```{r list of summary stats}
+library(dplyr)
+library(magrittr)
+library(qwraps2)
+options(qwraps2_markup = "markdown")
+
+args(summary_table)
+our_summary1 <-
+  list("Human HF183" =
+       list("min" = ~ min(cleandata$HF183),
+            "max" = ~ max(cleandata$HF183),
+            "median" = ~ median(cleandata$HF183)),
+       "Human HumM2" =
+       list("min" = ~ min(cleandata$HumM2),
+            "median" = ~ median(cleandata$HumM2),
+            "max" = ~ max(cleandata$Humm2)),
+       "Arcobacter spp. HSP60" =
+       list("min" = ~ min(cleandata$A_butzleri_HSP60),
+            "max" = ~ max(cleandata$A_butzleri_HSP60),
+            "median" = ~ median(cleandata$A_butzleri_HSP60)),
+       "Canada Goose CG01" =
+       list("min" = ~ min(cleandata$CG01),
+            "mas"  = ~ max(cleandata$CG01),
+            "median" = ~ median(cleandata$CG01))
+       )
+
+whole <- summary_table(cleandata, our_summary1)
+whole
+```
+
+
+
