@@ -475,5 +475,10 @@ Inverness_bird_Arco <- ggplot(Inverness) +
 Inverness_bird_Arco
 ```
 
+RASTER PLOTS
+```{r}
+raster_by_site_do <- ggplot(clean_data), aes(x = Date_Sampled, y = location, fill = dissolved_oxygen)) + geom_raster()
+raster_by_site_do
+```
 
 

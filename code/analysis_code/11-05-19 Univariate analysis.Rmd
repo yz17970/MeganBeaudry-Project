@@ -151,9 +151,132 @@ Inverness_bysite_box_HF183
 ggsave(filename = "../../results/Inverness_bysite_box_HF183.png", plot = Inverness_bysite_box_HF183)
 ```
 
+VIOLIN PLOTS
+Violin plots will be used for the FIB.
 
-```{r}
+```{r Enterococcus_CCE_Violin}
+McCall_Enterococcus_CCE_Violin <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot(aes(x = "", y = Enterococcus_CCE)) + 
+  geom_violin() +
+  geom_boxplot(width=0.1) +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Enterococcus", y = "Log10 CCE/100mL") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  geom_hline(yintercept = 3.1, colour = "red", linetype = "dotted")
+
+McCall_Enterococcus_CCE_Violin
+ggsave(filename = "../../results/McCall_Enterococcus_CCE_Violin.png", plot = McCall_Enterococcus_CCE_Violin)
+
+Country_Hills_Enterococcus_CCE_Violin <- clean_water_quality_data %>%
+  filter(Pond == "Country_Hills") %>%
+  ggplot(aes(x = "", y = Enterococcus_CCE)) + 
+  geom_violin() +
+  geom_boxplot(width=0.1) +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Enterococcus", y = "Log10 CCE/100mL") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  geom_hline(yintercept = 3.1, colour = "red", linetype = "dotted")
+
+Country_Hills_Enterococcus_CCE_Violin
+ggsave(filename = "../../results/Country_Hills_Enterococcus_CCE_Violin.png", plot = Country_Hills_Enterococcus_CCE_Violin)
+
+Inverness_Enterococcus_CCE_Violin <- clean_water_quality_data %>%
+  filter(Pond == "Inverness") %>%
+  ggplot(aes(x = "", y = Enterococcus_CCE)) + 
+  geom_violin() +
+  geom_boxplot(width=0.1) +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Enterococcus", y = "Log10 CCE/100mL") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
+  geom_hline(yintercept = 3.1, colour = "red", linetype = "dotted")
+
+Inverness_Enterococcus_CCE_Violin
+ggsave(filename = "../../results/Inverness_Enterococcus_CCE_Violin.png", plot = Inverness_Enterococcus_CCE_Violin)
+
+Entero_violin_all <- grid.arrange(Inverness_Enterococcus_CCE_Violin, Country_Hills_Enterococcus_CCE_Violin, McCall_Enterococcus_CCE_Violin)
+```
+
+
+
+```{r Thermotolerant Coliforms}
+McCall_thermo_coliforms <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot(aes(x = "", y = thermotolerant_coliforms)) + 
+  geom_jitter() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Total Coliforms", y = "CFU") +
+  geom_hline(yintercept = 2.6, colour = "red", linetype = "dotted") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) 
+
+McCall_thermo_coliforms
+ggsave(filename = "../../results/McCall_thermo_coliforms .png", plot = McCall_thermo_coliforms)
+
+Country_Hills_thermo_coliforms <- clean_water_quality_data %>%
+  filter(Pond == "Country_Hills") %>%
+  ggplot(aes(x = "", y = thermotolerant_coliforms)) + 
+  geom_jitter() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Total Coliforms", y = "CFU") +
+  geom_hline(yintercept = 2.6, colour = "red", linetype = "dotted") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) 
+
+Country_Hills_thermo_coliforms
+ggsave(filename = "../../results/Country_Hills_thermo_coliforms.png", plot = Country_Hills_thermo_coliforms)
+
+Inverness_thermo_coliforms <- clean_water_quality_data %>%
+  filter(Pond == "Inverness") %>%
+  ggplot(aes(x = "", y = thermotolerant_coliforms)) + 
+  geom_jitter() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Total Coliforms", y = "CFU") +
+  geom_hline(yintercept = 2.6, colour = "red", linetype = "dotted") +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) 
+
+Inverness_thermo_coliforms
+ggsave(filename = "../../results/Inverness_thermo_coliforms.png", plot = Inverness_thermo_coliforms)
+
+thermo_coliforms_all <- grid.arrange(Inverness_thermo_coliforms, Country_Hills_thermo_coliforms, McCall_thermo_coliforms)
+```
+
+```{r McCall water quality}
+McCall_WQ <- grid.arrange(McCall_Enterococcus_CCE_Violin, McCall_thermo_coliforms)
+ggsave(filename = "../../results/McCall_WQ_plots.png", plot = McCall_WQ)
 
 ```
 
+
+BAR CHARTS
+
+```{r STEC 1 bar chart}
+Shigatoxin1_bar <- clean_water_quality_data %>%
+  ggplot() +
+  geom_bar(aes(x = Shigatoxin_1), stat = "count", color = "magenta", fill = "white") +
+  labs(x = "Shiga Toxin 1", y = "Counts") +
+  theme(panel.background = element_rect(fill = "grey85"))
+Shigatoxin1_bar
+ggsave(filename = "../../results/Shigatoxin1_bar.png", plot = Shigatoxin1_bar)
+```
+
+```{r STEC 2 bar chart}
+Shigatoxin2_bar <- clean_water_quality_data %>%
+  ggplot() +
+  geom_bar(aes(x = Shigatoxin_2), stat = "count", color = "yellow", fill = "white") +
+  labs(x = "Shiga Toxin 2", y = "Counts") +
+  theme(panel.background = element_rect(fill = "grey85"))
+Shigatoxin2_bar
+ggsave(filename = "../../results/Shigatoxin2_bar.png", plot = Shigatoxin2_bar)
+```
 
