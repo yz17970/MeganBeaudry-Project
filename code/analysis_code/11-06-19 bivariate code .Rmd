@@ -520,10 +520,10 @@ Inverness_bird_Arco
 
 RASTER PLOTS
 ```{r}
-raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow"))
+raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow", "red"))
 raster_by_pond_HF183
 
-raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow"))
+raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow", "purple"))
 raster_by_pond_Entero
 
 

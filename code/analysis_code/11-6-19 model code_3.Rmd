@@ -113,7 +113,9 @@ prp(fit1$finalModel, extra = 1, type = 1)
 ```
 
 The figure above is telling me that entero is the strongest predictor of arco...okay well that makes sense
+if 
 
+doesnt work cause outcome needs to be categorical
 HF183
 ```{r}
 data_train_2 <- clean_data[, c(8,1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)]
@@ -144,15 +146,14 @@ print(resultmat)
 
 
 POND
+Predict which pond we are in by these conditions...if we have these conditions...
 ```{r}
-data_train_2 <- clean_data[, c(4,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)]
+data_train_2 <- clean_data[, c(4,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)]
 library(mlr) #We will jump between mlr and caret so call with :: at all times. 
-mlr::measureACC("", data_train$Pond)
-frequencies <- as.matrix(summary(data_train$Pond))
-##null_model <- max(frequencies)/length(data_train$Week)
-##null_model
-```
+mlr::measureACC("Country_Hills", data_train$Pond)
 
+```
+It needs to know the most common outcome
 ```{r Single predictor POND}
 
 
