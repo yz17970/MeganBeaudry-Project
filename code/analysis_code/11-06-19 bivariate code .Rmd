@@ -304,7 +304,8 @@ HF183_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HF183, color = 
   theme_bw() +
   ylim(3.2, 6.3) +
   theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 4), legend.title=element_text(size=5)) +
-  labs(color = "McCall Sampling Sites") 
+  labs(color = "McCall Sampling Sites") +
+  annotate("segment", x= as.Date("2017-07-04"), xend = as.Date("2017-07-04"), y = 6, yend = 5, arrow = arrow(), size = 1)
   
 
 HF183_at_McCall
