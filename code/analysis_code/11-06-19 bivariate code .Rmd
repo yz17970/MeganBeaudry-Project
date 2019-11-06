@@ -46,6 +46,7 @@ clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quali
 ```
 
 
+
 TABLES
 Lets start with positives by site....
 ```{r load libraries}
@@ -519,14 +520,14 @@ Inverness_bird_Arco
 
 RASTER PLOTS
 ```{r}
-raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183, interpolate = TRUE)) + geom_raster()
+raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow"))
 raster_by_pond_HF183
 
-raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE, interpolate = TRUE)) + geom_raster()
+raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow"))
 raster_by_pond_Entero
 
 
-ggplot(clean_data, aes(Date_Sampled, Pond))
+
 ```
 
 HEAT MAP
@@ -568,6 +569,32 @@ assoc_1 <- ggplot(data = clean_data) +
 
    
 ```
+CORRELATION
+```{r}
+library(corrplot)
+library(ggplot2)
+corr_subset <- clean_data[c(8,9,10,11)]
+corr_matrix_test <- cor(corr_subset)
+corrplot(corr_matrix_test, method = "square")
+
+#correlation with HF183, HumM2 and Arco
+corr_subset <- clean_data[c(8,9,15)]
+corr_matrix_arco_human <- cor(corr_subset)
+corr_matrix_arco_human_plot <- corrplot(corr_matrix_arco_human, method = "square")
+corr_matrix_arco_human_plot
+#Save it as a table
+#png("../../results/corr_matrix_arco_human).png", height=400, width=400)
+#p<-tableGrob(corr_matrix_arco_human_plot)
+#grid.arrange(p)
+#dev.off()
+#png("../../results/corr_matrix_arco_human.png", height=400, width=400)
+#p<-grob(corr_matrix_arco_human_plot)
+#dev.off()
+
+ggsave(filename = "../../results/corr_matrix_arco_human_plot.png",plot = corr_matrix_arco_human_plot)
+
+```
+
 
 T-TEST
 ```{r}
@@ -578,6 +605,9 @@ clean_data %>%
 
 
 LINEAR MODEL - SIMPLE
+Linear models describe a continuous response variable as a function of one or more predictor variables. They can help you understand and predict the behavior of complex systems or analyze experimental, financial, and biological data.
+
+We want to see if other biological inputs can predict the presence of A. butzleri. 
 ```{r}
 #http://r-statistics.co/Linear-Regression.html
 linearMod <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
