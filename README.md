@@ -5,13 +5,13 @@ This is water quality data Alberta. This project focuses specifically on Arcobac
 
 All code, figures, and text are reproducible from various subfolders within the project directory.
 
-Raw Data can be found in the data folder under the subfolder raw_data. THe only raw data that was cleaned was the "10-2-19raw data epid project". This file is a cvs. Another raw data table is 10-8-19 LOD95 Table. This data table may go to supplemental material.
+Raw Data can be found in the data folder under the subfolder raw_data. The only raw data that was cleaned was the "10-02-19raw data epid project". This file is a cvs. Another raw data table is 10-8-19 LOD95 Table. This data table may go to supplemental material.
 
 Processed data can be found in the processed data folder under the subfolder processed_data. This data is made by the processing r script.  
 
-Processing code can be found in the code folder under the subfolder processing code and is an r script titled "10-16-19 processing script 3". Instructions for running the processing code can be found in the ReadMe file in the folder code.
+Processing code can be found in the code folder under the subfolder processing code and is an r script titled "processing script". Instructions for running the processing code can be found in the ReadMe file in the folder code.
 
-Analysis code can be found in the folder code under the subfolder analysis code. Exploratory analysis is an rmd file titled "10-16-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in both exploratory scripts are saved as png files under the folder results.
+Analysis code can be found in the folder code under the subfolder analysis code. Exploratory analysis is an rmd file titled "10-31-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in both exploratory scripts are saved as png files under the folder results.
 
 
 
