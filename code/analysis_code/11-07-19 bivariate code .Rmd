@@ -190,6 +190,65 @@ p<-tableGrob(Salmonella_site)
 grid.arrange(p)
 dev.off()
 ```
+```{r MST by Pond}
+#HF183 positives by site 
+xtabs(~Pond+HF183_y_n, data=new_wq)
+HF183_y_n_site<- rowPerc(xtabs(~Pond+HF183_y_n, data=new_wq))
+png("../../results/HF183_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(HF183_y_n_site)
+grid.arrange(p)
+dev.off()
+
+#HumM2
+xtabs(~Pond+HumM2_y_n, data=new_wq)
+HumM2_y_n_site<- rowPerc(xtabs(~Pond+HumM2_y_n, data=new_wq))
+png("../../results/HumM2_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(HumM2_y_n_site)
+grid.arrange(p)
+dev.off()
+
+#CG01 positives by site 
+xtabs(~Pond+CG01_y_n, data=new_wq)
+CG01_y_n_site<- rowPerc(xtabs(~Pond+CG01_y_n, data=new_wq))
+png("../../results/CG01_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(CG01_y_n_site)
+grid.arrange(p)
+dev.off()
+
+
+#Dog3 positives by site 
+xtabs(~Pond+Dog3_y_n, data=new_wq)
+Dog3_y_n_site<- rowPerc(xtabs(~Pond+Dog3_y_n, data=new_wq))
+png("../../results/Dog3_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(Dog3_y_n_site)
+grid.arrange(p)
+dev.off()
+
+
+#Rum2Bac positives by site 
+xtabs(~Pond+Rum2Bac_y_n, data=new_wq)
+Rum2Bac_y_n_site<- rowPerc(xtabs(~Pond+Rum2Bac_y_n, data=new_wq))
+png("../../results/Rum2Bac_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(Rum2Bac_y_n_site)
+grid.arrange(p)
+dev.off()
+
+#LeeSg positives by site 
+xtabs(~Pond+LeeSg_y_n, data=new_wq)
+LeeSg_y_n_site<- rowPerc(xtabs(~Pond+LeeSg_y_n, data=new_wq))
+png("../../results/LeeSg_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(LeeSg_y_n_site)
+grid.arrange(p)
+dev.off()
+
+#MuBac positives by site 
+xtabs(~Pond+MuBac_y_n, data=new_wq)
+MuBac_y_n_site<- rowPerc(xtabs(~Pond+MuBac_y_n, data=new_wq))
+png("../../results/MuBac_y_n_pond_table.png", height=400, width=400)
+p<-tableGrob(MuBac_y_n_site)
+grid.arrange(p)
+dev.off()
+```
 
 ```{r FH183 by site - percent}
 #HF183 positives by site 
@@ -401,7 +460,7 @@ Arco_all_arranged <- grid.arrange(Arco_at_Country_Hills, Arco_at_Inverness, Arco
 
 ggsave(filename = "../../results/Arco_all_arranged.png",plot = Arco_all_arranged)
 
-#NEED TO ADD ARROWS FOR RAINFALL FOR ARCO AT MCCALL
+
 ```
 
 
@@ -509,7 +568,11 @@ Seagull_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = LeeSg, color 
   theme_bw() +
   ylim(2.5, 5) +
   theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
-  labs(color = "McCall Sampling Sites")
+  labs(color = "McCall Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
 
 
 Seagull_at_McCall
@@ -548,7 +611,7 @@ raster_by_pond_Entero
 
 HEAT MAP
 ```{r}
-heatmap <- heatmap(clean_data, aes(x = , y = pond)) + geom_tile(aes(fill = HF183))
+#heatmap <- heatmap(clean_data, aes(x = , y = pond)) + geom_tile(aes(fill = HF183))
 ```
 
 COOCCURANCE PLOTS AND FIGURES
@@ -573,13 +636,13 @@ mosaicplot(table_arco_human, sort=c(2,1))
 ```
 ```{r}
 library(vcd)
-vdc::mosaicplot()
+#vdc::mosaicplot()
 ```
 
 
 ```{r}
-assoc_1 <- ggplot(data = clean_data) +
-  geom_mosaic(aes(x = A_butzleri_HSP60_A, fill=HF183), divider="hbar", na.rm=TRUE) + labs(x=" ", title='divider = "hbar"') 
+#assoc_1 <- ggplot(data = clean_data) +
+  #geom_mosaic(aes(x = A_butzleri_HSP60_A, fill=HF183), divider="hbar", na.rm=TRUE) + labs(x=" ", title='divider = "hbar"') 
 
 
 
@@ -614,8 +677,8 @@ ggsave(filename = "../../results/corr_matrix_arco_human_plot.png",plot = corr_ma
 
 T-TEST
 ```{r}
-clean_data %>%
-  t.test(A_butzleri_HSP60, HF183)
+#clean_data %>%
+  #t.test(A_butzleri_HSP60, HF183)
 
 ```
 
