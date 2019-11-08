@@ -1,4 +1,4 @@
-This is the class project for Megan Beaudry.
+This is the class project for Megan Beaudry, a general overview is provided below.
 
 This data was collected by myself during my Master of Science at the Univeristy of Alberta. 
 This is water quality data Alberta. This project focuses specifically on Arcobacter butzleri. 
@@ -12,6 +12,13 @@ Processed data can be found in the processed data folder under the subfolder pro
 Processing code can be found in the code folder under the subfolder processing code and is an r script titled "processing script". Instructions for running the processing code can be found in the ReadMe file in the folder code.
 
 Analysis code can be found in the folder code under the subfolder analysis code. Exploratory analysis is an rmd file titled "10-31-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in both exploratory scripts are saved as png files under the folder results.
+
+The final manuscript is in the products folder.
+
+IN SUMMARY:
+1) Go to the data follow - Follow the readme
+2) Go to the code folder - Follow the readme
+3) Go to the products folder - Follow the readme
 
 
 
