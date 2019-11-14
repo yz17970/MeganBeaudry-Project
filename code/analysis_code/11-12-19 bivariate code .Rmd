@@ -697,6 +697,12 @@ TST
 ```{r}
 ks.test(McCall_Lake$HF183, McCall_Lake$HumM2)
 ks.test(McCall_Lake$HF183, McCall_Lake$A_butzleri_HSP60)
+t.test(McCall_Lake$HF183, McCall_Lake$HumM2)
+#significant means you fail the null
+#the null means they are equal to each other
+# p value less than .05 means you reject the null
+#these all reject the null are they are worng 
+
 ```
 D represents the value of the test-statistic (difference), so the KS-statistic  and the p-value represents the likelihood of observing this particular value of D, or a "more extreme" value by pure chance.
 
@@ -738,6 +744,10 @@ png("../../results/resulttable_lm_2.png", height=400, width=400)
 p<-tableGrob(lm_variables)
 grid.arrange(p)
 dev.off()
+
+#p value is showing if that level within the facotr that you testing is a signifncat predictor our ooutcome 
+#if it less than .05 is has a signficiant affect on our outcome
+#HF183, HumM2 and LeeSg are all signficant predictors 
 ```
 
 
