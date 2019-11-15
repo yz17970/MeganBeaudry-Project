@@ -657,10 +657,14 @@ corr_matrix_test <- cor(corr_subset)
 corrplot(corr_matrix_test, method = "square")
 
 #correlation with HF183, HumM2 and Arco
-corr_subset <- clean_data[c(8,9,15)]
+corr_subset <- clean_data[c(8,9,10,11,15)]
 corr_matrix_arco_human <- cor(corr_subset)
 corr_matrix_arco_human_plot <- corrplot(corr_matrix_arco_human, method = "square")
 corr_matrix_arco_human_plot
+
+png(height=1800, width=1800, file="../../results/corrplot_arco_human_bird.png")
+corr_plot = corrplot(corr_matrix_arco_human_plot, method = "square", tl.cex = 5)
+dev.off()
 #Save it as a table
 #png("../../results/corr_matrix_arco_human).png", height=400, width=400)
 #p<-tableGrob(corr_matrix_arco_human_plot)
@@ -670,18 +674,37 @@ corr_matrix_arco_human_plot
 #p<-grob(corr_matrix_arco_human_plot)
 #dev.off()
 
-ggsave(filename = "../../results/corr_matrix_arco_human_plot.png",plot = corr_matrix_arco_human_plot)
+
+
+```
+```{r}
+d_cor = clean_data %>% select(A_butzleri_HSP60, HF183, HumM2) %>% cor()
+png(height=1800, width=1800, file="../../results/corr_plot_arco_human.png")
+corr_plot = corrplot(d_cor, method="color", tl.cex = 5)
+dev.off()
+
+
 
 ```
 
 
-T-TEST
+TST
 ```{r}
 #clean_data %>%
   #t.test(A_butzleri_HSP60, HF183)
 
 ```
+```{r}
+ks.test(McCall_Lake$HF183, McCall_Lake$HumM2)
+ks.test(McCall_Lake$HF183, McCall_Lake$A_butzleri_HSP60)
+t.test(McCall_Lake$HF183, McCall_Lake$HumM2)
+#significant means you fail the null
+#the null means they are equal to each other
+# p value less than .05 means you reject the null
+#these all reject the null are they are worng 
 
+```
+D represents the value of the test-statistic (difference), so the KS-statistic  and the p-value represents the likelihood of observing this particular value of D, or a "more extreme" value by pure chance.
 
 LINEAR MODEL - SIMPLE
 Linear models describe a continuous response variable as a function of one or more predictor variables. They can help you understand and predict the behavior of complex systems or analyze experimental, financial, and biological data.
@@ -689,10 +712,42 @@ Linear models describe a continuous response variable as a function of one or mo
 We want to see if other biological inputs can predict the presence of A. butzleri. 
 ```{r}
 #http://r-statistics.co/Linear-Regression.html
-linearMod <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
-print(linearMod)
-modelSummary <- summary(linearMod)
+linearMod_HF183 <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
+print(linearMod_HF183)
+modelSummary <- summary(linearMod_HF183)
 
+linearMod_HumM2 <- lm(A_butzleri_HSP60 ~ HumM2, data = clean_data)
+linearMod_LeeSg <- lm(A_butzleri_HSP60 ~ LeeSg, data = clean_data)
+linearMod_CG01 <- lm(A_butzleri_HSP60 ~ CG01, data = clean_data)
+
+lm_log_HF183 = broom::tidy(linearMod_HF183)
+lm_log_HuMm2 = broom::tidy(linearMod_HumM2)
+lm_log_LeeSg = broom::tidy(linearMod_LeeSg)
+lm_log_CG01 = broom::tidy(linearMod_CG01)
+
+lm_variables = bind_rows(lm_log_HF183, lm_log_HuMm2, lm_log_LeeSg, lm_log_CG01)
+lm_variables = lm_variables %>% filter(term != "(Intercept)")
+
+saveRDS(lm_variables, file = "../../results/resulttable_lm.rds")
+
+lm_variables2 = bind_rows(lm_log_HF183, lm_log_HuMm2, lm_log_LeeSg, lm_log_CG01)
+
+lm_variables2 <- lm_variables2
+png("../../results/resulttable_lm_3.png", height=400, width=400)
+p<-tableGrob(lm_variables2)
+grid.arrange(p)
+dev.off()
+
+
+lm_variables <- lm_variables 
+png("../../results/resulttable_lm_2.png", height=400, width=400)
+p<-tableGrob(lm_variables)
+grid.arrange(p)
+dev.off()
+
+#p value is showing if that level within the facotr that you testing is a signifncat predictor our ooutcome 
+#if it less than .05 is has a signficiant affect on our outcome
+#HF183, HumM2 and LeeSg are all signficant predictors 
 ```
 
 
