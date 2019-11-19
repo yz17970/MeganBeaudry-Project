@@ -94,29 +94,19 @@ It is important to note that in most cases for _Enterococcus_ at sites other tha
 This analysis revealed that stormwater ponds in southern Alberta, Canada, do not often meet existing guidelines or standards as laid out by USEPA and Alberta Environments and Parks in terms of recreational water quality, surface water quality and/or irrigation water quality (*figure above*, supplemental material). For this reason, we sought to determine the potentiasl sources of poor water quality using microbial source tracking assays for humans, ruminants, dogs, gull, geese and muskrat.
 
 # Microbial Source Tracking 
-Calgary stormwater ponds were mainly impacted by human and gull feces (*below*). The human specific markers, HF183 and HumM2, were detected at 42% and 16%, of samples, respectively in McCall Lake (*below*). On the lower end, they were dtected in 14% and 3% of samples at Inverness. The gull specific marker (i.e., LeeSg) was found in 15% of samples at McCall Lake (*below*). Of these, the more dominant source of fecal pollution was from humans (*below*). All other host-specific markers (i.e., dog, Canada geese, muskrat, and ruminants) were detected in <5% of pond samples (supplemental material figures *---*).
+Calgary stormwater ponds were mainly impacted by human and gull feces (*below*, see supplemental material for exact numbers). The human specific markers, HF183 and HumM2, were detected at 42% and 16%, of samples, respectively in McCall Lake (*below*, see supplemental material for exact numbers). On the lower end, they were dtected in 14% and 3% of samples at Inverness. The gull specific marker (i.e., LeeSg) was found in 15% of samples at McCall Lake (*below*, see supplemental material for exact numbers). Of these, the more dominant source of fecal pollution was from humans (*below*, see supplemental material for exact numbers). All other host-specific markers (i.e., dog, Canada geese, muskrat, and ruminants) were detected in <5% of pond samples (supplemental material figures *---*).
 
 
-```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker HF183 for human fecal contamination broken down by sampling site in Calgary, Alberta."}
-knitr::include_graphics("../../results/HF183_y_n_pond_table.png")
-```
-
-
-```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker HuMm2 for human fecal contamination broken down by sampling site in Calgary, Alberta."}
-knitr::include_graphics("../../results/HumM2_y_n_pond_table.png")
-```
-
-
-```{r warning=FALSE,echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker CG01 for human fecal contamination broken down by sampling site in Calgary, Alberta."}
-knitr::include_graphics("../../results/CG01_y_n_pond_table.png")
+```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker HF183 and HumM2 for human fecal contamination broken down by sampling site in Calgary, Alberta."}
+knitr::include_graphics("../../results/human_percent_bar_2.png")
 ```
 
 
 
-```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker LeeSg for human fecal contamination broken down by sampling site in Calgary, Alberta."}
-knitr::include_graphics("../../results/LeeSg_y_n_pond_table.png")
-```
 
+```{r warning=FALSE,echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on MST marker CG01 and LeeSg for human fecal contamination broken down by sampling site in Calgary, Alberta."}
+knitr::include_graphics("../../results/bird_percent_bar.png")
+```
 
 
 In congruence with finding that ML2 at McCall Lake was the most frequently contaminated site with human feces (*ABOVE TABLE*), this site also had the greatest median concentration of the human fecal marker HF183 (i.e., 4.2 log10 copies/100 mL) observed across all three stormwater ponds and sampling sites in these ponds (*BELOW FIGURE*). In comparison, all other McCall Lake sampling sites had a median concentration of HF183 at ~3.4 log10 copies/100 mL (i.e., close to the quantification limit of the assay (red dotted line)) (*BELOW FIGURE*). Specifically, at ML2, there was a single outlier in the data set for HF183, represented by a value of 6.0 log10 copies/100 mL (*BELOW FIGURE*). However, although ML2 represented the most consistently contaminated sampling site with human fecal contamination at McCall Lake, all other sites in this thesis appeared to be at risk for human fecal contamination (supplemental material). 
@@ -160,26 +150,15 @@ knitr::include_graphics("../../results/LeeSg_at_McCall.png")
 Overall, there were patterns of similarity in seagull contamination regarding temporal trends. These patterns were similar across the sampling sites in McCall Lake, which was noted for two key reasons. Firstly, there were three instances where seagull fecal contamination occurred concurrently at three or more McCall Lake sites (i.e., July 10th, August 14th, and September 13th). Secondly, on the aforementioned sampling dates, the levels of seagull fecal contamination detected were all within one order of magnitude of each other. These patterns suggested that a potential environmental variable linked the contamination along the sampling sites at McCall Lake. 
 One potential environmental variable examined was antecedent rainfall. Only three dates (i.e., May 25th, June 8th, and September 13th) had greater than 10 mm of rain. Seagull fecal contamination was detected on only one of the sampling dates (September 13th), though at three sampling sites on this date.
 
-A high-level descriptive overview of the frequency of several enteric bacterial pathogens (i.e., _A. butzleri_, _Campylobacter_ spp., _Salmonella_ spp., and STEC) in each of the Calgary urban stormwater ponds (i.e., McCall Lake, Country Hills Stormwater Facility, and Inverness Stormpond), and at each sampling site within the ponds is provided in *-----*. The most frequently detected bacterial pathogen found in stormwater ponds was _A. butzleri_, detected in 36% of samples at McCall Lake, 24% of samples at Inverness and 18% of samples at Country Hills (*-----*). The second most common pathogen detected was _Campylobacter_ spp. (4% at Country Hills) and _Salmonella_ spp. (1% at McCall Lake) (*-----*). 
+A high-level descriptive overview of the frequency of several enteric bacterial pathogens (i.e., _A. butzleri_, _Campylobacter_ spp., _Salmonella_ spp., and STEC) in each of the Calgary urban stormwater ponds (i.e., McCall Lake, Country Hills Stormwater Facility, and Inverness Stormpond), and at each sampling site within the ponds is provided in *-----*. The most frequently detected bacterial pathogen found in stormwater ponds was _A. butzleri_, detected in 36% of samples at McCall Lake, 24% of samples at Inverness and 18% of samples at Country Hills (*-----*, see supplemental materials for exact percents). The second most common pathogen detected was _Campylobacter_ spp. (4% at Country Hills) and _Salmonella_ spp. (1% at McCall Lake) (*-----*). 
 
 
 
-```{r echo=FALSE, fig.cap='The frequency of occurence of the enteric bacterial pathogen _A. butzleri_ in the Calgary, Alberta stormwater ponds.', echo=FALSE}
-##FIX   knitr::kable()
-
+```{r echo=FALSE, fig.cap='The frequency of occurence of the enteric bacterial pathogen _A. butzleri_ _Campylobacter_ spp., _Salmonella_ spp., in the Calgary, Alberta stormwater ponds.', echo=FALSE}
+knitr::include_graphics("../../results/arco_percent_bar.png")
 ```
 
 
-
-```{r echo=FALSE, fig.cap='The frequency of occurence of the enteric bacterial pathogen _Campylobacter_ spp. in the Calgary, Alberta stormwater ponds.', echo=FALSE}
-knitr::include_graphics("../../results/campy_pond_table.png")
-```
-
-
-
-```{r echo=FALSE, fig.cap='The frequency of occurence of the enteric bacterial pathogen _A. butzleri_ in the Calgary, Alberta stormwater ponds.', echo=FALSE}
-knitr::include_graphics("../../results/Salmonella_pond_table.png")
-```
 
 
 To better understand temporal variation, we further examined patterns of occurrence based on molecular qPCR results. Notable temporal fluctuations in _A. butzleri_ were observed between the urban stormwater ponds, and among the sampling sites within a pond (*BELOW*). We found that at Inlet ¾, in McCall Lake, considerable temporal fluctuations were detected in the levels of _A. butzleri_ between sequential sampling dates. Within a two-week time period (i.e., four sequential sampling dates, June 20th – June 29th), the concentration of _A. butzleri_ varied from being not detected (i.e., below the limit of quantification of 3.5 log10 copies/100 mL) on June 20th, then spiking to 3.9 log10 copies/100 mL on June 22nd, to be not detected on June 27th, and spiking again to 4.3 log10 copies/100 mL on June 29th. 
@@ -233,7 +212,8 @@ _Summarize what you did, what you found and what it means._
 ## Strengths and Limitations
 _Discuss what you perceive as strengths and limitations of your analysis._
   The analytitical methods used in this analysis were similar to those use in speciality specific journal in the field of water and health (e.g., Journal of Water and Health, Frontiers in Water, Water Quality Research, Water and Environment). This is a strength of this research study, as it makes it less complicated for scientists in the field to compare the fecal indicator bacteria (FIB), enteric bacterial pathogens, and microbials sources of fecal pollution with their findigs, which is a common practice in assessing water quality. Additionally, the analysis used to evaluate the aforementioned variables allow scientists to gain a better understanding of the variables beyond just frequency of occurance. For example, for FIB jitter plots and violin plots were made that reflect outliers, medians, and how these relate to US EPA or Alberta Environment water quality standards. Another important aspect in water quality is temporal vararation, and how environmental variables may affect any temporal fluctuations we see. Temporal variability was assessed for our main pathogen of concern (i.e., _A. butzleri_), in addition to any other variables that may affect _A. butzleri_ contamination (e.g., microbial source tracking markers), while overlaying environmental variables (i.e., rainfall). The analysis enabled us to overlay all sampling locations and ponds, which is important when determing in-study comparisons. Moreover, the analysis in this study was taken one step further than majority of studies in the field by providing a comprehensive supplemental material section that provides all analyses for all ponds and sampling sites.  
-  There are several alternative ways this data may have been analyzed. For example, when analyzing FIB we could have also provided temporal trends, however, as that was not the focus of this study. Furthermore, FIB may also have been analzyed by box and whisker plots instead of violin plots, as these two plot types are very similar. In this study temporal trends were analyzed using line graphs, however an alternative would have been to use bar charts.
+  There are several alternative ways this data may have been analyzed. For example, when analyzing FIB we could have also provided temporal trends, however, as that was not the focus of this study. Furthermore, FIB may also have been analzyed by box and whisker plots instead of violin plots, as these two plot types are very similar. In this study temporal trends were analyzed using line graphs, however an alternative would have been to use bar charts. Furthermore, a lot of data has been presented in this paper in both in both table formats (in the supplemental material) and figure format in the publication, in order to provide the most information.
+  Models are not often used when assessing water quality data through molecular methods. However, as modeling was a key component of this class, several models have been included in the publication. A linear model was used to predict _A. butzleri_ contamination based on several microbial source tracking markers that were present in the stormwater ponds we sampled. 
       Our study focused on molecular-based methods for the identification of _A. butzleri_, in addition to other pathogens and microbial source tracking markers in urban stormwater ponds. Molecular-based methods are fast, less labor-intensive and can be less biased than culture-based methods. Using molecular-techniques allowed us to assess ~800 samples for a wide vareity of microbial sources of fecal polution, enteric bacterial pathogens, and water quality indicators. Furthermore, this study entailed the entire time from thaw to freeze, when stormwater poses a risk to human health and a potential reuse opporuntity. Having a long sampling season, ina addition to obtaining samples biweekely allowed us to fully assess temporal trends. Additionally, by assessing a variety of stormwater ponds we were able to gather a deeper understanding of water quality issues facing urban stormwater ponds in Alberta.
       Although molecular-based methods provide a lot of infomration, these culture-independant techniques do not differentiate between living and dead cells. As such, other studies have found molecular methods to underestimate _A. butzleri_ prevelance by as much as 50% (Beaudry et al., unpublished) when comparing to culture-based methods. As such, the prevelance of _A. butzleri_ in this paper may be widely underestimated, and may be as high as 75%. Furthermore, qPCR methods do not provide us with any information on the physiological state or activities of the bacterium, which could be further studied using metatranscriptomics or culture-methods. In addition, as _A. butzleri_ is a putative pathogen future work needs to be done in order to determine the bacteriums pathogenic potential. For this research specifically, any isolates of _A. butzleri_ obtained could be tested for virulence genes using homologs of those found in _Campylobacter_ spp.
       
