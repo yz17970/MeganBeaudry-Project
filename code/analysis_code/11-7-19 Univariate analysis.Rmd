@@ -261,12 +261,23 @@ ggsave(filename = "../../results/Inverness_thermo_coliforms.png", plot = Inverne
 thermo_coliforms_all <- grid.arrange(Inverness_thermo_coliforms, Country_Hills_thermo_coliforms, McCall_thermo_coliforms)
 ```
 
+```{r Country Hills water quality}
+McCall_WQ <- grid.arrange(Country_Hills_Enterococcus_CCE_Violin, Country_Hills_thermo_coliforms)
+ggsave(filename = "../../results/Country_Hills_WQ_plots.png", plot = McCall_WQ)
+
+```
+```{r Inverness water quality}
+McCall_WQ <- grid.arrange(Inverness_Enterococcus_CCE_Violin, Inverness_thermo_coliforms)
+ggsave(filename = "../../results/Inverness_WQ_plots.png", plot = McCall_WQ)
+
+```
+
+
 ```{r McCall water quality}
 McCall_WQ <- grid.arrange(McCall_Enterococcus_CCE_Violin, McCall_thermo_coliforms)
 ggsave(filename = "../../results/McCall_WQ_plots.png", plot = McCall_WQ)
 
 ```
-
 
 BAR CHARTS
 

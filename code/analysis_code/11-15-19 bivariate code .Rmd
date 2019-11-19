@@ -34,6 +34,8 @@ library(RColorBrewer)
 library(dplyr)
 library(caret)
 library(tidyverse)
+library(kableExtra)
+library(xtable)
 ```
 
 ## Including Plots
@@ -141,6 +143,45 @@ grid.arrange(p)
 dev.off()
 ```
 
+
+
+
+```{r Arco by Pond}
+#Arco positives by site 
+xtabs(~Pond+arco_y_n, data=new_wq)
+Arco_Pond<- rowPerc(xtabs(~Pond+arco_y_n, data=new_wq))
+png("../../results/Arco_pond_table.png", height=400, width=400)
+p<-tableGrob(Arco_Pond)
+grid.arrange(p)
+dev.off()
+
+```
+
+
+```{r Arco by pond make table pretty}
+
+Arco_Pond %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  save_kable(file = "../../results/Arco_Pond_table_4.png")
+
+
+  #kable_as_image("../../results/test3")
+
+#kableExtra::save_kable(Arco_Pond, file = "table.pdf")
+
+  ##save_kable(file = "../../results/Arco_Pond_table_4.png")
+
+##save(Arco_Pond, file = "../../results/Arco_Pond_table_2.RData")
+```
+
+```{r, results='asis'}
+#print(xtable(head(Arco_Pond_2)), type="html")
+
+library(xtable)
+print(xtable(Arco_Pond), type='html')
+```
+
 ```{r by ponds - MST - percent}
 xtabs(~Pond+HF183_y_n, data=new_wq)
 HF183_y_n_pond<- rowPerc(xtabs(~Pond+HF183_y_n, data=new_wq))
@@ -177,6 +218,10 @@ png("../../results/arco_site_table.png", height=400, width=400)
 p<-tableGrob(arco_site)
 grid.arrange(p)
 dev.off()
+
+
+#save as df
+save(arco_site, file = "../../results/saved_arco_site.RData")
 ```
 
 
@@ -577,6 +622,48 @@ Seagull_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = LeeSg, color 
 
 Seagull_at_McCall
 ggsave(filename = "../../results/LeeSg_at_McCall.png",plot = Seagull_at_McCall)
+
+```
+
+```{r Temp Trend - Seagull - Inverness}
+Seagull_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "Inverness Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
+
+
+Seagull_at_Inverness
+ggsave(filename = "../../results/LeeSg_at_Inverness.png",plot = Seagull_at_Inverness)
+
+```
+
+```{r Temp Trend - Seagull - Country Hills }
+Seagull_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "Country Hills Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
+
+
+Seagull_at_Country_Hills
+ggsave(filename = "../../results/LeeSg_at_Country_Hills.png",plot = Seagull_at_Country_Hills)
 
 ```
 
