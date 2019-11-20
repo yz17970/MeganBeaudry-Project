@@ -60,8 +60,8 @@ str(new_wq)
 #want to convert a new column with acro as yes or no to get the percent of the samples positive 
 #lets do arco first
 new_wq <- new_wq %>% mutate(arco_y_n= 
-                      ifelse(A_butzleri_HSP60 < "3.391993", "negative",
-                      ifelse(A_butzleri_HSP60 > "3.391994", "positive",
+                      ifelse(A_butzleri_HSP60 < "3.391993", "no",
+                      ifelse(A_butzleri_HSP60 > "3.391994", "yes",
                       "no")))
 clean_data_1 <- new_wq
 
@@ -76,10 +76,12 @@ clean_data_2 <- clean_data_1[, c(25, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1
 clean_data_2 <- clean_data_2 %>% dplyr::select(-A_butzleri_HSP60)
 ```
 
-REMOVE
-
-```{r}
-#clean_data_2 <- clean_data_2 %>% dplyr::select(-HF183, -HumM2, -LeeSg, -CG01, -Dog3, -Rum2Bac, -A_butzleri_HSP60, -Salmonella_spp_InvA, -Campylobacter_spp_Van_Dkye, -Enterococcus_CCE, -total_coliforms, -E_coli, -Enteroalert, -Sampling_Site, -Pond, -Date, -Date_Sampled, -Week, -Rainfall, -arco_new, -MuBac, -Sample_ID, -HF183_new, -Shigatoxin_1, -Shigatoxin_2, -thermotolerant_coliforms)
+PARALLELIZATION
+We want to use mutliple processors, which the code below will allow us to do.
+```{r parallel}
+n_cores <- 4 #number of cores to use
+cl <- makePSOCKcluster(n_cores)
+registerDoParallel(cl) #comment out this line if you don't want parallel computing
 ```
 
 
