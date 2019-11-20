@@ -76,11 +76,7 @@ clean_data_2 <- clean_data_1[, c(25, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1
 clean_data_2 <- clean_data_2 %>% dplyr::select(-A_butzleri_HSP60, -Sampling_Site, -Pond, -Date, -Date_Sampled, -Week)
 ```
 
-REMOVE
 
-```{r}
-#clean_data_2 <- clean_data_2 %>% dplyr::select(-HF183, -HumM2, -LeeSg, -CG01, -Dog3, -Rum2Bac, -A_butzleri_HSP60, -Salmonella_spp_InvA, -Campylobacter_spp_Van_Dkye, -Enterococcus_CCE, -total_coliforms, -E_coli, -Enteroalert, -Sampling_Site, -Pond, -Date, -Date_Sampled, -Week, -Rainfall, -arco_new, -MuBac, -Sample_ID, -HF183_new, -Shigatoxin_1, -Shigatoxin_2, -thermotolerant_coliforms)
-```
 
 
 
