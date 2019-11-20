@@ -70,16 +70,26 @@ The data was cleaned to format the variables (e.g., DNQ, not detects, >2419.6) i
 A high-level descriptive overview of the bacteriological water quality in each of these ponds, and at each of the sites, is provided in *-----*, and is based on the percentage of samples violating water quality standards/guidelines, as evaluated against: the USEPA’s recreational water quality guideline for _Enterococcus_ by molecular methods (Environmental Protection Agency, 2012). Water quality was also evaluated against Alberta’s former recreational water quality standards based on thermotolerant coliform concentrations was also used to evaluated water quality (Supplemental Material, Figure 1).  A number of observations are worth noting from this high-level analysis. 
 
 ```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on water quality indicator _Enterococcus_ spp. in stormwater ponds in Calgary, Alberta."}
-knitr::include_graphics("../../results/entero_pond_table.png")
+knitr::include_graphics("../../results/entero_percent_bar_2.png")
 ```
 
 
 Firstly, considerable spatial variation was observed with respect to the frequency of water quality failures among the urban stormwater ponds, with McCall Lake appearing to be the most contaminated of the three storm ponds. 
 
 
-```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on water quality indicator _Enterococcus_ spp. broken down by sampling site in Calgary, Alberta."}
-knitr::include_graphics("../../results/entero_y_n_site_table.png")
+```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on water quality indicator _Enterococcus_ spp. broken down by sampling site at McCall Lake in Calgary, Alberta."}
+knitr::include_graphics("../../results/McCall_entero_percent_bar_sampling_site.png")
 ```
+
+```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on water quality indicator _Enterococcus_ spp. broken down by sampling site at Country Hills in Calgary, Alberta."}
+knitr::include_graphics("../../results/Country_Hills_entero_percent_bar_sampling_site.png")
+```
+
+
+```{r warning=FALSE, echo=FALSE, fig.cap= "Frequency of occurrence of samples positive based on water quality indicator _Enterococcus_ spp. broken down by sampling site at Inverness in Calgary, Alberta."}
+knitr::include_graphics("../../results/Inverness_entero_percent_bar_sampling_site.png")
+```
+
 This result was true regardless of the bacterial water quality indicator chosen for analysis (i.e., _Enterococcus_ or thermotolerant coliforms [see supplemental material, Figure 2]). Approximately 29% of all water samples taken at McCall Lake failed water quality guidelines for _Enterococcus_ at the recommended STV or geomean values set out in the guidance documents (*____*). Inverness Stormpond had the fewest water quality violations among the three ponds, also based on all bacteriological indicators examined, and therefore was considered to have the best water quality overall.
 
 However, variation in bacteriological water quality was also observed among sampling sites within a single pond. The most contaminated site across all stormwater ponds examined was site ML2 at McCall Lake, with upwards of 51% of all samples failing the US EPAs Guidelines for Recreational Water Quality for Enteroccus spp. STV (*___*). This site had the poorest water quality irrespective of the bacterial indicator used in the analysis.  It is important to note, however, that ML2 was an above-grade outfall (*___ and ___*), thereby potentially explaining the more frequent bacteriological failures at this site as due to the fact that water samples were directly collected from the outfall and not after dilution into the pond.
@@ -181,7 +191,7 @@ Due to the prevalence and abundance of _A. butzleri_ contamination, we sought to
 
 
 ```{r echo=FALSE}
-knitr::include_graphics("../../results/corrplot_arco_human_bird_2.png")
+knitr::include_graphics("../../results/corrplot_arco_human_bird.png")
 ```
 Several linear models were run in order to test the hypothesis that the source of fecal material in stormwater ponds would affect _A. butzleri_. Based on previous analyses, linear models were only run ont the most abundant microbial source tracking markers (i.e., HF183, HumM2, LeeSg, and CG01). The linear model for human fecal contamination (i.e., HF183 and HumM2), reflecte that based on the p-values rejecting the null hypothesis. This indicates thats human fecal material is a signifant predictor of our enteric bacterial pathogen, _A. butzleri_. Combining this with the correlation plot previously presented, and temporal occurance plots previously shown, we can suggest that HF183 and HumM2 affect _A. butzleri_ contamination. In addition, we reject the null hypothesis for LeeS, which also aligns with our correlation plot and temporal occurance plots. However, we were not able to reject the null hypothesis for CG01 as the p-value is greater than .05. This also aligns with our previous analysis, as this outcome was least associated to our predictor _A. butzleri_.
 

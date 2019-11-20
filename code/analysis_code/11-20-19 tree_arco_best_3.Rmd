@@ -62,7 +62,7 @@ str(new_wq)
 new_wq <- new_wq %>% mutate(arco_y_n= 
                       ifelse(A_butzleri_HSP60 < "3.391993", "negative",
                       ifelse(A_butzleri_HSP60 > "3.391994", "positive",
-                      "negative")))
+                      "no")))
 clean_data_1 <- new_wq
 
 ```
@@ -78,9 +78,9 @@ clean_data_2 <- clean_data_2 %>% dplyr::select(-A_butzleri_HSP60)
 
 
 
-SPLIT data
-In order to deal with problems such as overfitting, we want to set aside some of the data at the start of the analysis. This helps use to evaluate our model. You do not want to evalute a model on the same data you use to train the model! The rule of thumb is to set aside 20-40% of your data for evaluation, so I decided to set aside 30% of my data for testing the model, and 70% to train the model.  
 
+SPLIT data
+In order to deal with problems such as overfitting, we want to set aside some of the data at the start of the analysis. This helps use to evaluate our model. You do not want to evalute a model on the same data you use to train the model! The rule of thumb is to set aside 20-40% of your data for evaluation, so I decided to set aside 30% of my data for testing the model, and 70% to train the model. 
 ```{r split data}
 
 library(caret)
@@ -99,6 +99,8 @@ data_test = clean_data_2[-trainset,]
 
 PARALLELIZATION
 We want to use mutliple processors, which the code below will allow us to do.
+
+We want to use mutliple processors, which the code below will allow us to do.
 ```{r parallel}
 n_cores <- 4 #number of cores to use
 cl <- makePSOCKcluster(n_cores)
@@ -109,7 +111,8 @@ MODEL FITTING
 Time to try to fit the model.
 
 NULL MODEL
-To define a null model, we need to determine what performance measure we want to track. We now have a categorical outcome 2 categories, so we could use a regular 2x2 table/confusion matrix. However, in class we used accuracy, which is the fraction of correct predictions. This is our baseline performance. 
+To define a null model, we need to determine what performance measure we want to track. We now have a categorical outcome 2 categories, so we could use a regular 2x2 table/confusion matrix. However, in class we used accuracy, which is the fraction of correct predictions. This is our baseline performance.
+
 
 ```{r null model}
 mlr::measureACC("positive", data_train$arco_y_n)
@@ -118,7 +121,9 @@ SINGLE PREDICTOR MODEL
 Lets start with a single predictor model. This means we are fitting the outcome (A. butlzeri) to each predictor one at a time. This allows us to get the an idea of the importance of the indivdual predictors.
 I had run this mutliple times, and have adusted the tune length to 20 in hopes that it includes more items on the tree. I also tested 50 and 10, which included the same items.
 
-```{r single predictors}
+```{r single predictor}
+
+
 #There is probably a nicer tidyverse way of doing this. I just couldn't think of it, so did it this way.
 set.seed(1111) #makes each code block reproducible
 outcomename = "arco_y_n"
@@ -127,7 +132,7 @@ Npred <- ncol(data_train)-1 # number of predictors
 resultmat <- data.frame(Variable = names(data_train)[-1], ACC = rep(0,Npred)) #store performance for each variable
 for (n in 2:ncol(data_train)) #loop over each predictor. For this to work, outcome must be in 1st column
 {
-  fit1 <- caret::train( as.formula(paste(outcomename, "~",names(data_train)[n])) , data = data_train, method = "rpart", trControl = fitControl, na.action = na.pass, tuneLength = 20)
+  fit1 <- caret::train( as.formula(paste(outcomename, "~",names(data_train)[n])) , data = data_train, method = "rpart", trControl = fitControl, na.action = na.pass, tuneLength = 50)
 resultmat[n-1,2]= max(fit1$results$Accuracy)  
 }
 print(resultmat)
@@ -135,26 +140,17 @@ print(resultmat)
 #In order to get this code to work i had to specify the carett:: package
 ```
 
-We want accuracy to be around .7, which we do find here. We also find that this has a much higher accuracy that our null model!
-
-FULL MODEL
-Now lets fit the tree to a full model. The tune length was adjusted to try to include more variables.
+#want accuracy to be around .7. We also find that this has a much higher accuracy that our null model!
 ```{r Arco full fit}
 set.seed(1111)
 fitControl <- trainControl(method="repeatedcv",number=5,repeats=5) 
 fit2 = caret::train(arco_y_n  ~ ., data=data_train, method="rpart",  trControl = fitControl, na.action = na.pass, tuneLength = 50) 
 print(fit2$results)
 ```
-We see that for a high CP our model is still far from perfect. 
 
-TREE
-The final tree is below. I have lots of thoughts on the final tree that this model produced, after trying many different variations, this one did the best regarding variable selection. 
 
-```{r Tree}
-arco_tree <- prp(fit2$finalModel, extra = 1, type = 1)
-ww=17.8/2.54; wh=ww;
-dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/arco_tree_best.png")
-```
+Final Tree
+The final tree is below. 
 
 We see that the tree splits on first week 0, which makes sense as there should not be a starting concentration of A. butzleri in the stormwater ponds. It then splits on Enterococcus which is one of our FIB, rainfall, and another FIB (i.e., E. coli). This is logical as we would hope that FIB are doing their job and detecting the presence of pathogens. 
 
@@ -162,41 +158,9 @@ Similar to the first model we tried in calss, we not that most of the variables 
 
 As i already removed the variables that would compound our model, and increased the tune length in prior attempts at this script, we will move forward.
 
-Random Forest
-```{r}
-clean_water_quality_data
-set.seed(123)
-#extract observations/rows for training, assign to new variable. 
-#Extracts 70% of the data into the trainset
-trainset <- caret::createDataPartition(y = clean_water_quality_data$A_butzleri_HSP60, p = 0.7, list = FALSE)
-#subsets out the dataset
-data_train = clean_water_quality_data[trainset,] 
-#do the same for the test set
-data_test = clean_water_quality_data[-trainset,] 
+
+```{r Final Tree}
+arco_tree <- prp(fit2$finalModel, extra = 1, type = 1)
+ww=17.8/2.54; wh=ww;
+dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/arco_tree_best.png")
 ```
-
-We will try random forest with the 'ranger' algorithm.
-```{r convert to factor}
-sapply(data_train, class)
-data_train$arco_y_n <- as.factor(data_train$arco_y_n)
-sapply(data_train, class)
-```
-
-
-```{r randomforest, echo=TRUE}
-library(caret)
-library(randomForest)
-set.seed(1111) #makes each code block reproducible
-tuning_grid <- expand.grid( .mtry = seq(1,7,by=1), .splitrule = "gini", .min.node.size = seq(2,8,by=1) )
-fit2 = caret::train(arco_y_n ~ ., data=data_train, method="ranger",  trControl = fitControl, tuneGrid = tuning_grid, na.action = na.pass) 
-#again had to specify caret for the package
-#needed to change the data to data_train_remove or else got an error message
-```
-
-```{r}
-library('gbm')
-gbmGrid <- expand.grid(interaction.depth = seq(1, 7, by = 2), n.trees = 300, shrinkage = c(0.1, 0.01), n.minobsinnode = c(2,4,6))
-fit3 = caret::train(arco_y_n ~ ., data=data_train, method="gbm", trControl = fitControl, verbose=FALSE, tuneGrid = gbmGrid) 
-```
-
-

@@ -407,19 +407,6 @@ Inverness_2 <- subset(new_wq, Pond == "Inverness")
 ```
 
 
-
-```{r}
-
-
-McCall_Acro_Graph <- ggplot(data = McCall_Lake_2, aes(x=arco_y_n)) +
-  geom_bar(color = "#DDA0DD", fill = "#DDA0DD") +
-  geom_text(stat='count', aes(label=..count..), vjust=-1) +
-  theme(panel.background = element_rect(fill = "grey85")) +
-  labs(x = title, y = "Counts")
-McCall_Acro_Graph
-
-
-```
 ```{r}
 #https://www.sheffield.ac.uk/polopoly_fs/1.714591!/file/stcp-karadimitriou-categoricalR.pdf
 arco_table <- table(McCall_Lake_2$arco_y_n)
@@ -427,9 +414,6 @@ arco_table
 prop.table(arco_table)
 round(100*prop.table(arco_table),digits=0)
 ```
-
-
-
 
 
 ```{r}
@@ -440,6 +424,223 @@ McCall_Lake_3 <- McCall_Lake_2 %>%
   summarise(counts = n())
 McCall_Lake_3
 ```
+Let's start with FIB, then move to MST, and end with pathogens.
+
+```{r Enterococcus by pond}
+#we want this to say failure or pass instead of yes and no
+McCall_Lake_2 <- McCall_Lake_2 %>% mutate(Entero_y_n= 
+                      ifelse(Enterococcus_CCE < "3.102", "pass",
+                      ifelse(Enterococcus_CCE > "3.103", "fail",
+                      "pass")))
+Inverness_2 <- Inverness_2 %>% mutate(Entero_y_n= 
+                      ifelse(Enterococcus_CCE < "3.102", "pass",
+                      ifelse(Enterococcus_CCE > "3.103", "fail",
+                      "pass")))
+Country_Hills_2 <- Country_Hills_2 %>% mutate(Entero_y_n= 
+                      ifelse(Enterococcus_CCE < "3.102", "pass",
+                      ifelse(Enterococcus_CCE > "3.103", "fail",
+                      "pass")))
+
+#we need the title to be in atlics 
+title_4 <- expression(paste(italic("Enterococcus"), " spp."))
+title_5 <- expression(paste ("Frequency of Occurance of Water Quality Failures based on" (italic("Enterococcus"), "spp.")))
+
+#remove NA
+
+McCall_Lake_2 = McCall_Lake_2 %>%
+  filter(Entero_y_n != "NA")
+
+#graph mccall
+McCall_Entero_percent_bar <- ggplot(McCall_Lake_2, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#F08080", fill = "#F08080") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("McCall Lake") +
+        theme_pubclean()
+McCall_Entero_percent_bar
+ 
+#graph country Hills
+Country_entero_percent_bar <- ggplot(Country_Hills_2, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#DC143C", fill = "#DC143C") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("Country Hills") +
+  theme_pubclean()
+Country_entero_percent_bar
+
+#graph inverness
+Inverness_entero_percent_bar <- ggplot(Inverness_2, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#8B0000", fill = "#8B0000") +
+        xlab(title_4) +
+  ggtitle("Inverness") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+Inverness_entero_percent_bar
+
+#arrange them all together
+entero_percent_bar <- grid.arrange(McCall_Entero_percent_bar, Country_entero_percent_bar, Inverness_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Pond" , nrow=2)
+ggsave(filename = "../../results/entero_percent_bar_2.png",plot = entero_percent_bar)
+```
+
+If i want to look at the water quality indicators by sampling site, i need to subset by sampling site, like I did with pond above. Let's do that.
+
+```{r subset by sampling site}
+#McCall first
+ML2 <- subset(McCall_Lake_2, Sampling_Site == "Outfall ML2")
+ML1 <- subset(McCall_Lake_2, Sampling_Site == "Outfall ML1")
+Inlet_.75 <- subset(McCall_Lake_2, Sampling_Site == "Inlet 3/4")
+PR60 <- subset(McCall_Lake_2, Sampling_Site == "Inlet PR60")
+
+#Country Hills
+WP31A <- subset(Country_Hills_2, Sampling_Site == "Outfall WP31A")
+WP31B <- subset(Country_Hills_2, Sampling_Site == "Inlet WP31B")
+WP31C <- subset(Country_Hills_2, Sampling_Site == "Outfall WP31C")
+WP31D <- subset(Country_Hills_2, Sampling_Site == "Outfall WP31D")
+WP31E <- subset(Country_Hills_2, Sampling_Site == "Outfall WP31E")
+
+#Inverness
+Outfall_Inlet <- subset(Inverness_2, Sampling_Site == "Outfall_Inlet")
+WP26B <- subset(Inverness_2, Sampling_Site == "Outfall WP26B")
+WP26C <- subset(Inverness_2, Sampling_Site == "Outfall WP26C")
+WP26D <- subset(Inverness_2, Sampling_Site == "Outfall WP26D")
+```
+
+```{r Entero by site}
+#we need the title to be in atlics 
+title_4 <- expression(paste(italic("Enterococcus"), " spp."))
+title_5 <- expression(paste ("Frequency of Occurance of Water Quality Failures based on" (italic("Enterococcus"), "spp.")))
+
+#remove NA
+
+McCall_Lake_2 = McCall_Lake_2 %>%
+  filter(Entero_y_n != "NA")
+
+#graph mccall
+ML2_Entero_percent_bar <- ggplot(ML2, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF8C00", fill = "#FF8C00") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("ML2") +
+        theme_pubclean()
+ML2_Entero_percent_bar
+ 
+
+ML1_entero_percent_bar <- ggplot(ML1, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF8C00", fill = "#FF8C00") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("ML1") +
+  theme_pubclean()
+ML1_entero_percent_bar
+
+PR60_entero_percent_bar <- ggplot(PR60, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF8C00", fill = "#FF8C00") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("ML1") +
+  theme_pubclean()
+PR60_entero_percent_bar
+
+Inlet_.75_entero_percent_bar <- ggplot(Inlet_.75, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF8C00", fill = "#FF8C00") +
+        xlab(title_4) +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        ggtitle("Inlet 3/4") +
+  theme_pubclean()
+Inlet_.75_entero_percent_bar
+
+#graph country Hills
+WP31A_entero_percent_bar <- ggplot(WP31A, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FFD700", fill = "#FFD700") +
+        xlab(title_4) +
+  ggtitle("WP31A") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP31A_entero_percent_bar
+
+WP31B_entero_percent_bar <- ggplot(WP31B, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FFD700", fill = "#FFD700") +
+        xlab(title_4) +
+  ggtitle("WP31B") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP31A_entero_percent_bar
+
+WP31C_entero_percent_bar <- ggplot(WP31C, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FFD700", fill = "#FFD700") +
+        xlab(title_4) +
+  ggtitle("WP31C") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP31A_entero_percent_bar
+
+WP31D_entero_percent_bar <- ggplot(WP31D, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FFD700", fill = "#FFD700") +
+        xlab(title_4) +
+  ggtitle("WP31D") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP31A_entero_percent_bar
+
+WP31E_entero_percent_bar <- ggplot(WP31E, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FFD700", fill = "#FFD700") +
+        xlab(title_4) +
+  ggtitle("WP31E") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP31A_entero_percent_bar
+
+#graph inverness
+outfall_inlet_entero_percent_bar <- ggplot(Outfall_Inlet, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF4500", fill = "#FF4500") +
+        xlab(title_4) +
+  ggtitle("Outfall Inlet") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+outfall_inlet_entero_percent_bar
+WP26B_entero_percent_bar <- ggplot(WP26B, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF4500", fill = "#FF4500") +
+        xlab(title_4) +
+  ggtitle("WP26B") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP26B_entero_percent_bar
+WP26C_entero_percent_bar <- ggplot(WP26C, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF4500", fill = "#FF4500") +
+        xlab(title_4) +
+  ggtitle("WP26C") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP26C_entero_percent_bar
+WP26D_entero_percent_bar <- ggplot(WP26D, aes(x = Entero_y_n)) +
+        geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF4500", fill = "#FF4500") +
+        xlab(title_4) +
+  ggtitle("WP26D") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_pubclean()
+WP26D_entero_percent_bar
+
+#arrange them all together
+sites_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site" , nrow=4)
+ggsave(filename = "../../results/entero_percent_bar_sampling_site.png",plot = sites_percent_bar)
+```
+
 
 
 ```{r Human for all sampling site - percent - barchart}
@@ -448,7 +649,7 @@ McCall_Lake_3
 McCall_HF183_percent_bar <- ggplot(McCall_Lake_2, aes(x = HF183_y_n)) +
         geom_bar(aes(y = (..count..)/sum(..count..)), color = "#228B22", fill = "#228B22") +
         xlab("HF183") +
-        scale_y_continuous(labels = scales::percent, name = "Proportion") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
         ggtitle("McCall Lake") +
         theme_pubclean()
@@ -457,7 +658,7 @@ McCall_HF183_percent_bar
 Country_HF183_percent_bar <- ggplot(Country_Hills_2, aes(x = HF183_y_n)) +
         geom_bar(aes(y = (..count..)/sum(..count..)), color = "#2E8B57", fill = "#2E8B57") +
         xlab("HF183") +
-        scale_y_continuous(labels = scales::percent, name = "Proportion") +
+        scale_y_continuous(labels = scales::percent, name = "Frequency") +
         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
         ggtitle("Country Hills") +
   theme_pubclean()
