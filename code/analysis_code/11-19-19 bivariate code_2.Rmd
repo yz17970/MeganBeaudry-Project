@@ -697,7 +697,7 @@ Inverness <- subset(clean_data, Pond == "Inverness")
 Country_Hills <- subset(clean_data, Pond == "Country_Hills")
 ```
 
-
+## Line graphs - Microbial Source Tracking Markers
 HF183 is a huge source of contamination. Let's see if that has any temporal trends associated with it, so we can understand the data better. 
 ```{r Temporal Trend: HF183 at each pond by site}
 #Need to fix as some of it is getting cut off 
@@ -760,8 +760,165 @@ HF183_all_arranged <- grid.arrange(HF183_at_McCall, HF183_at_Country_Hills, HF18
 ggsave(filename = "../../results/HF183_all_arranged.png",plot = HF183_all_arranged)
 ```
 
+
+```{r Temp trend: HumM2 at each pond by site}
+
+
+HumM2_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(3.2, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "McCall Sampling Sites")
+  
+
+HumM2_at_McCall
+ggsave(filename = "../../results/HumM2_at_McCall.png",plot = HumM2_at_McCall)
+
+HumM2_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(3.2, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "Country Hills Sampling Sites")
+
+HumM2_at_Country_Hills  
+ggsave(filename = "../../results/HumM2_at_Country_Hills.png",plot = HumM2_at_Country_Hills)
+
+HumM2_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(3.2, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "Inverness Sampling Sites")
+  
+
+HumM2_at_Inverness
+ggsave(filename = "../../results/HumM2_at_Inverness.png",plot = HumM2_at_Inverness)
+
+HumM2_all_arranged <- grid.arrange(HumM2_at_Country_Hills, HumM2_at_Inverness, HumM2_at_McCall)
+
+ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
+```
+
+
+```{r Temp trend: CG01 at each pond by site}
+#looking at canada goose contamination 
+CGO1_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "McCall Sampling Sites")
+  
+
+CGO1_at_McCall
+ggsave(filename = "../../results/CGO1_at_McCall.png",plot = CGO1_at_McCall)
+
+CG01_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "Country Hills Sampling Sites")
+
+CG01_at_Country_Hills  
+ggsave(filename = "../../results/_at_Country_Hills.png",plot = CG01_at_Country_Hills)
+
+CG01_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 6) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
+  labs(color = "Inverness Sampling Sites")
+  
+
+CG01_at_Inverness
+ggsave(filename = "../../results/CG01_at_Inverness.png",plot = CG01_at_Inverness)
+
+HumM2_all_arranged <- grid.arrange(CG01_at_Country_Hills, CG01_at_Inverness, CGO1_at_McCall)
+
+ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
+
+```
+
+
+```{r Temp Trend - Seagull - McCall}
+#looking at seagull contamination by pond 
+
+Seagull_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(3.15, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "McCall Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
+
+
+Seagull_at_McCall
+ggsave(filename = "../../results/LeeSg_at_McCall.png",plot = Seagull_at_McCall)
+
+Seagull_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "Inverness Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
+
+
+Seagull_at_Inverness
+ggsave(filename = "../../results/LeeSg_at_Inverness.png",plot = Seagull_at_Inverness)
+
+Seagull_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw() +
+  ylim(2.5, 5) +
+  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
+  labs(color = "Country Hills Sampling Sites") +
+  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
+  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
+ annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
+  
+
+
+Seagull_at_Country_Hills
+ggsave(filename = "../../results/LeeSg_at_Country_Hills.png",plot = Seagull_at_Country_Hills)
+
+```
+
+
+## Line graphs - pathogens
+
 ```{r Temp Trend: Arco at each pond by site}
-#Need to fix as some of it is getting cut off 
+#Now lets look at A. butzleri at each site
 
 Arco_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = A_butzleri_HSP60, color = Sampling_Site)) + geom_line() +
   geom_point() +
@@ -811,197 +968,6 @@ ggsave(filename = "../../results/Arco_all_arranged.png",plot = Arco_all_arranged
 ```
 
 
-```{r Temp Trend: Arco at each pond by site}
-```
-
-
-```{r Temp trend: HumM2 at each pond by site}
-#Need to fix as some of it is getting cut off 
-
-HumM2_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(3.8, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "McCall Sampling Sites")
-  
-
-HumM2_at_McCall
-ggsave(filename = "../../results/HumM2_at_McCall.png",plot = HumM2_at_McCall)
-
-HumM2_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(3.2, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "Country Hills Sampling Sites")
-
-HumM2_at_Country_Hills  
-ggsave(filename = "../../results/HumM2_at_Country_Hills.png",plot = HumM2_at_Country_Hills)
-
-HumM2_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = HumM2, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 4.14, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(3.2, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "Inverness Sampling Sites")
-  
-
-HumM2_at_Inverness
-ggsave(filename = "../../results/HumM2_at_Inverness.png",plot = HumM2_at_Inverness)
-
-HumM2_all_arranged <- grid.arrange(HumM2_at_Country_Hills, HumM2_at_Inverness, HumM2_at_McCall)
-
-ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
-```
-
-```{r Temp trend: CG01 at each pond by site}
-
-CGO1_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "McCall Sampling Sites")
-  
-
-CGO1_at_McCall
-ggsave(filename = "../../results/CGO1_at_McCall.png",plot = CGO1_at_McCall)
-
-CG01_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "Country Hills Sampling Sites")
-
-CG01_at_Country_Hills  
-ggsave(filename = "../../results/_at_Country_Hills.png",plot = CG01_at_Country_Hills)
-
-CG01_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = CG01, color = Sampling_Site)) + geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.4, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 6) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 6), legend.title=element_text(size=5)) +
-  labs(color = "Inverness Sampling Sites")
-  
-
-CG01_at_Inverness
-ggsave(filename = "../../results/CG01_at_Inverness.png",plot = CG01_at_Inverness)
-
-HumM2_all_arranged <- grid.arrange(CG01_at_Country_Hills, CG01_at_Inverness, CGO1_at_McCall)
-
-ggsave(filename = "../../results/HumM2_all_arranged.png",plot = HumM2_all_arranged)
-
-```
-```{r Temp Trend - Seagull - McCall}
-Seagull_at_McCall <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
-  geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 5) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
-  labs(color = "McCall Sampling Sites") +
-  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
-  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
- annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
-  
-
-
-Seagull_at_McCall
-ggsave(filename = "../../results/LeeSg_at_McCall.png",plot = Seagull_at_McCall)
-
-```
-
-```{r Temp Trend - Seagull - Inverness}
-Seagull_at_Inverness <- ggplot(Inverness, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
-  geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 5) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
-  labs(color = "Inverness Sampling Sites") +
-  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
-  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
- annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
-  
-
-
-Seagull_at_Inverness
-ggsave(filename = "../../results/LeeSg_at_Inverness.png",plot = Seagull_at_Inverness)
-
-```
-
-```{r Temp Trend - Seagull - Country Hills }
-Seagull_at_Country_Hills <- ggplot(Country_Hills, aes(x = Date_Sampled, y = LeeSg, color = Sampling_Site)) + 
-  geom_line() +
-  geom_point() +
-  geom_hline(yintercept = 3.28, colour = "black", linetype = "dotted") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw() +
-  ylim(2.5, 5) +
-  theme(axis.title.x = element_text( size = 7), axis.title.y = element_text( size = 7), legend.text = element_text( size = 7), legend.title=element_text(size=7)) +
-  labs(color = "Country Hills Sampling Sites") +
-  annotate("segment", x= as.Date("2017-06-08"), xend = as.Date("2017-06-08"), y = 5, yend = 4.7, arrow = arrow(), size = 1) + 
-  annotate("segment", x= as.Date("2017-05-25"), xend = as.Date("2017-05-25"), y = 5, yend = 4.7, arrow = arrow(), size = 1) +
- annotate("segment", x= as.Date("2017-09-13"), xend = as.Date("2017-09-13"), y = 5, yend = 4.7, arrow = arrow(), size = 1)
-  
-
-
-Seagull_at_Country_Hills
-ggsave(filename = "../../results/LeeSg_at_Country_Hills.png",plot = Seagull_at_Country_Hills)
-
-```
-
-```{r}
-Inverness_bird_Arco <- ggplot(Inverness) +
-  geom_line(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
-  geom_line(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
-  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
-  geom_hline(yintercept = 3.4, colour = "dark green", linetype = "dotted") +
-  geom_hline(yintercept = 3.58, colour = "purple", linetype = "dotted") + 
-  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
-  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
-  geom_point(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
-  geom_point(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
-  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
-  theme_bw()
-
-Inverness_bird_Arco
-```
-
-RASTER PLOTS
-```{r}
-raster_by_pond_HF183 <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = HF183)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow", "red"))
-raster_by_pond_HF183
-
-raster_by_pond_Entero <- ggplot(clean_data, aes(x = Date_Sampled, y = Pond, fill = Enterococcus_CCE)) + geom_raster(interpolate = TRUE) + scale_fill_gradientn(colors = c("blue", "yellow", "purple"))
-raster_by_pond_Entero
-
-
-
-```
-
-HEAT MAP
-```{r}
-#heatmap <- heatmap(clean_data, aes(x = , y = pond)) + geom_tile(aes(fill = HF183))
-```
 
 COOCCURANCE PLOTS AND FIGURES
 ```{r Arco and HF183 co occurance}
@@ -1023,20 +989,9 @@ mosaicplot(table_arco_human, sort=c(2,1))
 
 
 ```
-```{r}
-library(vcd)
-#vdc::mosaicplot()
-```
-
-
-```{r}
-#assoc_1 <- ggplot(data = clean_data) +
-  #geom_mosaic(aes(x = A_butzleri_HSP60_A, fill=HF183), divider="hbar", na.rm=TRUE) + labs(x=" ", title='divider = "hbar"') 
 
 
 
-   
-```
 CORRELATION
 ```{r}
 library(corrplot)
@@ -1067,35 +1022,16 @@ dev.off()
 
 
 corr_plot_2
-#Save it as a table
-#png("../../results/corr_matrix_arco_human).png", height=400, width=400)
-#p<-tableGrob(corr_matrix_arco_human_plot)
-#grid.arrange(p)
-#dev.off()
-#png("../../results/corr_matrix_arco_human.png", height=400, width=400)
-#p<-grob(corr_matrix_arco_human_plot)
-#dev.off()
 
-
-
-```
-```{r}
-d_cor = clean_data %>% select(A_butzleri_HSP60, HF183, HumM2) %>% cor()
-png(height=1800, width=1800, file="../../results/corr_plot_arco_human.png")
-corr_plot = corrplot(d_cor, method="color", tl.cex = 5)
-dev.off()
 
 
 
 ```
 
 
-TST
-```{r}
-#clean_data %>%
-  #t.test(A_butzleri_HSP60, HF183)
 
-```
+KS Test
+The KS statistic are way to measure the liklihood of observaing a value. 
 ```{r}
 ks.test(McCall_Lake$HF183, McCall_Lake$HumM2)
 ks.test(McCall_Lake$HF183, McCall_Lake$A_butzleri_HSP60)
@@ -1109,10 +1045,12 @@ t.test(McCall_Lake$HF183, McCall_Lake$HumM2)
 D represents the value of the test-statistic (difference), so the KS-statistic  and the p-value represents the likelihood of observing this particular value of D, or a "more extreme" value by pure chance.
 
 LINEAR MODEL - SIMPLE
+
 Linear models describe a continuous response variable as a function of one or more predictor variables. They can help you understand and predict the behavior of complex systems or analyze experimental, financial, and biological data.
 
 We want to see if other biological inputs can predict the presence of A. butzleri. 
 ```{r}
+#the website below was found to be useful 
 #http://r-statistics.co/Linear-Regression.html
 linearMod_HF183 <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
 print(linearMod_HF183)
