@@ -136,3 +136,4 @@ arco_tree <- prp(fit2$finalModel, extra = 1, type = 1)
 ww=17.8/2.54; wh=ww;
 dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/arco_tree_best.png")
 ```
+

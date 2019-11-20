@@ -1,0 +1,375 @@
+---
+title: "10-16-19 exploratory analysis"
+author: "Megan Beaudry"
+date: "10/8/2019"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exploratory Analysis {.tabset}
+
+
+
+##Prelimnary Loading
+Load clean data
+```{r}
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+```
+
+Load libraries
+```{r}
+library(ggplot2)
+library(ggthemes)
+library(RColorBrewer)
+library(dplyr)
+```
+
+##Exploratory Analysis - Summary Statistics
+Summary stats are a great way to get an idea of overall trends in the data. This will help to me inform me later on what kind of plots I want to make, and what may be important to show. When looking at the summary stats, we should note min and maxs, as well as mediums.
+```{r}
+summary(clean_water_quality_data$Rainfall)
+summary(clean_water_quality_data$HF183)
+summary(clean_water_quality_data$HumM2)
+summary(clean_water_quality_data$CG01)
+summary(clean_water_quality_data$LeeSg)
+summary(clean_water_quality_data$Dog3)
+summary(clean_water_quality_data$MuBac)
+summary(clean_water_quality_data$Rum2Bac)
+summary(clean_water_quality_data$A_butlzeri_HSP60)
+summary(clean_water_quality_data$Salmonella_spp_InvA)
+summary(clean_water_quality_data$Campylobacter_spp_Van_Dkye)
+summary(clean_water_quality_data$Enterococcus_CCE)
+summary(clean_water_quality_data$total_coliforms)
+summary(clean_water_quality_data$E_coli)
+summary(clean_water_quality_data$Enteroalert)
+summary(clean_water_quality_data$thermotolerant_coliforms)
+```
+
+##Exploratory Analysis - Temporal Trends
+
+
+*Temporal Trends All Pond Comparison*
+Temporal trends allow water quality scientists to get a good look at variation associated with seasonality, and general trends in the body of water.
+ggplot will be used to explore most of these, as that is the plotting package I am most comfortable with.
+Comparison with traditional water quality indicators and Arco.
+I am really unhappy with this figure. I need to brainstorm a better way to represent data - I am thinking a good alternative may be to use a line graph and overlay the rainfall with arrows as there are only few days with significant rainfall during this study.
+```{r Arco and entero line with bar}
+ggplot(clean_water_quality_data) + 
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_bar(mapping = aes(x = Date_Sampled, y = Enterococcus_CCE), color = "purple", stat = "identity") + 
+  ylab("CCE")
+```
+Lets how just arco looks as a line graph
+```{r arco as line}
+ggplot(clean_water_quality_data) + 
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  ylab(expression("Log10_copies/100mL"))
+```
+How does entero look as a line
+```{r entero as bar}
+ggplot(clean_water_quality_data) +
+  geom_bar(mapping = aes(x = Date_Sampled, y = Enterococcus_CCE), color = "purple", stat = "identity") + 
+  ylab("CCE")
+```
+
+The temporal trends by pond of HF183, HumM2 & A. butzleri to see if there was a relationship between source and pathogen
+```{r source and pathogen relationship - line graph}
+All_Human_Arco <- ggplot(clean_water_quality_data) +
+  geom_line(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  facet_wrap(~ Pond) +
+  geom_hline(yintercept = 3.67, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 4.14, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  theme_bw()
+All_Human_Arco
+ggsave(filename = "../../results/All_Human_Arco.png",plot = All_Human_Arco)
+```
+An alternative could to be use a stacked bar plot.
+
+```{r arco and rainfall by pond}
+All_rain_Arco <- ggplot(clean_water_quality_data) +
+  geom_line(mapping = aes(x = Date_Sampled, y = Rainfall), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  facet_wrap(~ Pond) +
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  theme_bw()
+All_rain_Arco
+ggsave(filename = "../../results/All_rain_Arco.png",plot = All_rain_Arco) 
+```
+
+
+*Temporal Trends grouped by Pond and Source*
+Temporal trend of each pond individually with pathogen and source. Majority of these are made with line graphs. Alternatives could be barplots. 
+
+Part 1: Human and Arco 
+```{r Human and Arco McCall}
+McCall_Human_Arco <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.67, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 4.14, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+McCall_Human_Arco
+ggsave(filename = "../../results/McCall_Human_Arco.png",plot = McCall_Human_Arco) 
+```
+
+
+All pathogens in McCall
+```{r All pathogens McCall}
+McCall_Pathogens <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = Campylobacter_spp_Van_Dkye), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = Salmonella_spp_InvA), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 11.96, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 4.14, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = Campylobacter_spp_Van_Dkye), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = Salmonella_spp_InvA), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+McCall_Pathogens
+ggsave(filename = "../../results/McCall_Pathogens.png",plot = McCall_Pathogens)
+```
+
+Took out Salmonella because we didnt find any...However THIS graph looks horrible becasue the LOD for campy is so high compared to the others (i.e., 11 to 3.5 on average). I need to come up with a better to show this if i want to show it. It really is a negative result, as we did not find much Campylobacter spp. However, they are highly related bacteria so some kind of relationship would be nice to show...
+```{r McCall Campy and Arco}
+McCall_Camp_Arco <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = Campylobacter_spp_Van_Dkye), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 11.96, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = Campylobacter_spp_Van_Dkye), color = "dark green") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+McCall_Camp_Arco
+ggsave(filename = "../../results/McCall_Camp_arco.png",plot = McCall_Camp_Arco)
+```
+
+
+
+```{r Country Hills human and arco}
+Country_Hills_Hum_Arco<- clean_water_quality_data %>%
+  filter(Pond == "Country_Hills") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.67, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 4.14, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+Country_Hills_Hum_Arco
+ggsave(filename = "../../results/Country_Hills_Hum_Arco.png",plot = Country_Hills_Hum_Arco)
+```
+
+```{r Inverness human and arco}
+Inverness_Hum_Arco <- clean_water_quality_data %>%
+  filter(Pond == "Inverness") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.67, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 4.14, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HumM2), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+Inverness_Hum_Arco
+ggsave(filename = "../../results/Inverness_Hum_Arco.png",plot = Inverness_Hum_Arco)
+
+```
+
+Part 2: Birds and Arco 
+Again these are line graphs. Barplot could also be explored, but i find that line graphs are more often used in the literature to explore this kind of data.
+```{r Inverness Bird and Arco}
+Inverness_Bird_Arco <- clean_water_quality_data %>%
+  filter(Pond == "Inverness") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.4, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 3.58, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+Inverness_Bird_Arco
+ggsave(filename = "../../results/Inverness_Bird_Arco.png",plot = Inverness_Bird_Arco)
+```
+
+
+
+
+```{r McCall Bird and Arco}
+McCall_Bird_Arco <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.4, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 3.58, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+McCall_Bird_Arco
+ggsave(filename = "../../results/McCall_Bird_Arco.png",plot = McCall_Bird_Arco)
+```
+
+
+
+
+
+```{r Country Hills Bird Arco}
+Country_Hills_Bird_Arco <- clean_water_quality_data %>%
+  filter(Pond == "Country_Hills") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_line(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_hline(yintercept = 3.4, colour = "dark green", linetype = "dotted") +
+  geom_hline(yintercept = 3.58, colour = "purple", linetype = "dotted") + 
+  geom_hline(yintercept = 3.69, colour = "navy", linetype = "dotted") +
+  geom_point(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_point(mapping = aes(x = Date_Sampled, y = CG01), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = LeeSg), color = "purple") +
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  theme_bw()
+Country_Hills_Bird_Arco
+ggsave(filename = "../../results/Country_Hills_Bird_Arco.png", plot = Country_Hills_Bird_Arco)
+```
+
+*Temporal Trends One Marker Per Pond*
+Now lets take a step back and just look at one marker at a time in the pond. A lot of the figures made above were overwhelming. 
+```{r McCall HF183}
+McCall_HF183 <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot() +
+  geom_line(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") +
+  geom_point(mapping = aes(x = Date_Sampled, y = HF183), color = "dark green") + 
+  labs (x = "Date Sampled", y = "Log10 Copies/100mL") +
+  geom_hline(yintercept = 3.67, colour = "black", linetype = "dotted") +
+  theme_bw() +
+  scale_color_discrete(name = "Legend", labels = c("HF183", "LOD95"))
+McCall_HF183
+ggsave(filename = "../../results/McCall_HF183.png", plot = McCall_HF183)
+```
+
+##Exploratory Analysis - Box and Whisker Plots
+Box and whisker plots are often used to assess water quality. An alternative could be to use violin plots, or provide the information in a table.
+Boxplot of HF183 on all ponds
+```{r Boxplot of HF183 on all ponds}
+All_Box_HF183 <- ggplot(data = clean_water_quality_data, aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  facet_wrap(~ Pond) +
+  theme_bw() + 
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+All_Box_HF183
+ggsave(filename = "../../results/All_Box_HF183.png", plot = All_Box_HF183)
+```
+Since McCall Lake has the most interesting data, lets look at the sampling sites within McCall Lake to see if one site has a higher median (is more contaminated)
+```{r McCall HF183 boxplot}
+McCall_bysite_box_HF183 <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot(aes(x = "", y = HF183)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "HF183", y = "Log10 Copies/100mL")
+McCall_bysite_box_HF183
+ggsave(filename = "../../results/McCall_bysite_box_HF183.png", plot = McCall_bysite_box_HF183)
+```
+
+```{r subsetting by site}
+clean_data <- clean_water_quality_data
+ML2 <- subset(clean_data, Sampling_Site == "Outfall ML2")
+McCall_Lake <- subset(clean_data, Pond == "McCall_Lake")
+
+HF183_at_ML2_1 <- ggplot(ML2, aes(x = Date_Sampled, y = HF183)) + geom_line()
+
+HF183_at_ML2 <- ggplot(McCall_Lake, aes(x = Date_Sampled, y = HF183, color = Sampling_Site)) + geom_line()
+
+HF183_at_ML2
+```
+
+## Violin Plots
+Lets test out the violin plots we mentioned above but with FIB. The water quality data measured through molecular methods (i.e., Enterococcus CCE as determined by EPA Method 1611) would be best visualized using a violin plot
+```{r McCall_Enterococcus violin}
+McCall_Enterococcus_CCE_Violin <- clean_water_quality_data %>%
+  filter(Pond == "McCall_Lake") %>%
+  ggplot(aes(x = "", y = Enterococcus_CCE)) + 
+  geom_violin() +
+  geom_boxplot(width=0.1) +
+  coord_cartesian(ylim = c(0, 6)) +
+  facet_wrap(~ Sampling_Site) +
+  theme_bw() +
+  labs (x = "Enterococcus", y = "Log10 Copies/100mL")
+McCall_Enterococcus_CCE_Violin
+ggsave(filename = "../../results/McCall_Enterococcus_CCE_Violin.png", plot = McCall_Enterococcus_CCE_Violin)
+```
+
+##Exploratory Analysis - Bar Charts
+I wanted to try to make some bar charts, so lets just see if we have anything with the shigatoxin data. 
+How many samples are positive for shigatoxin 1
+```{r STEC 1 bar}
+Shigatoxin1_bar <- clean_water_quality_data %>%
+  ggplot() +
+  geom_bar(aes(x = Shigatoxin_1), stat = "count", color = "magenta", fill = "white") +
+  labs(x = "Shiga Toxin 1", y = "Counts") +
+  theme(panel.background = element_rect(fill = "grey85"))
+Shigatoxin1_bar
+ggsave(filename = "../../results/Shigatoxin1_bar.png", plot = Shigatoxin1_bar)
+```
+How many samples are positive for shigatoxin 2
+```{r STEC 2 bar}
+Shigatoxin2_bar <- clean_water_quality_data %>%
+  ggplot() +
+  geom_bar(aes(x = Shigatoxin_2), stat = "count", color = "yellow", fill = "white") +
+  labs(x = "Shiga Toxin 2", y = "Counts") +
+  theme(panel.background = element_rect(fill = "grey85"))
+Shigatoxin2_bar
+ggsave(filename = "../../results/Shigatoxin2_bar.png", plot = Shigatoxin2_bar)
+```
+
+
+

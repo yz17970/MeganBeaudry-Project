@@ -93,7 +93,7 @@ dataWQ$Pond <- recode(dataWQ$Pond, "McCall_Lake " = "McCall_Lake")
 dataWQ$Pond <- recode(dataWQ$Pond, "Inverness " = "Inverness")
 
 #It looks like we also have some inconsistencies with how sampling site names were entered (capitlization)
-#Lets fix taht too
+#Lets fix that too. Consisteny is key!!
 unique(dataWQ$Sampling_Site)
 dataWQ$Sampling_Site <- recode(dataWQ$Sampling_Site, "Outfall wp26B" = "Outfall WP26B")
 dataWQ$Sampling_Site <- recode(dataWQ$Sampling_Site, "Outfall Wp31 C" = "Outfall WP31C")
@@ -124,11 +124,13 @@ dataWQ$Sampling_Site <- recode(dataWQ$Sampling_Site, "Outfall WP31B" = "Inlet WP
 
 
 #The shigatoxin data is a presence or absence test. We want to treat "not tested" (so those that were not positive for E. coli and therefore could not have shigatoxin) as na
+#The reason to converting this to NA and not just "no" is that the water sample is not positive for E. coli, STX is usually found. STX is similar to other "AB toxins" like cholera toxin, so I do not want assume that STX will never show up in any other bacteria. 
 dataWQ$Shigatoxin_1[which(dataWQ$Shigatoxin_1=="not tested")] <- "NA"
 dataWQ$Shigatoxin_1[which(dataWQ$Shigatoxin_1=="Not tested")] <- "NA"
 dataWQ$Shigatoxin_2[which(dataWQ$Shigatoxin_2=="Not tested")] <- "NA"
 
 #I aslo want to replace the yes and no in the shigatoxin data with positive and negative
+#When I recording the data originally, i recorded the CT values (or cycle threshold). This is not important to analysis, so we will ignore it.
 dataWQ$Shigatoxin_1[which(dataWQ$Shigatoxin_1=="Yes")] <- "positive"
 dataWQ$Shigatoxin_1[which(dataWQ$Shigatoxin_1=="Yes CT 34.934")] <- "positive"
 dataWQ$Shigatoxin_1[which(dataWQ$Shigatoxin_1=="Yes CT 34")] <- "positive"
@@ -231,7 +233,7 @@ A_butzleri_HSP60_A <- na_replace(dataWQ$A_butzleri_HSP60, 2466)
 Salmonella_spp_InvA_A <- na_replace(dataWQ$Salmonella_spp_InvA, 1482)
 Campylobacter_spp_Van_Dkye_A <- na_replace(dataWQ$Campylobacter_spp_Van_Dkye, 3588)
 
-#or should i replace the na in the DF...
+#I replaced the na in the DF...
 #again, the value 0 can be changed
 dataWQ$HF183 <- na_replace(dataWQ$HF183, 2136)
 dataWQ$HumM2 <- na_replace(dataWQ$HumM2, 7038)
