@@ -4,7 +4,7 @@ author: "Megan Beaudry"
 date: "11/7/2019"
 output: html_document
 ---
-
+#all data is converted to yes or no. Method is being switched too RMSE. Rpart is being changed to lm 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -37,56 +37,56 @@ new_wq <- clean_data
 #want to convert a new column with acro as yes or no to get the percent of the samples positive 
 #lets do arco first
 new_wq <- new_wq %>% mutate(arco_y_n= 
-                      ifelse(A_butzleri_HSP60 < "3.391993", "no",
-                      ifelse(A_butzleri_HSP60 > "3.391994", "yes",
+                      ifelse(A_butzleri_HSP60 < "3.391993", "negative",
+                      ifelse(A_butzleri_HSP60 > "3.391994", "positive",
                       "no")))
 #Now HF183 and the rest
 new_wq <- new_wq %>% mutate(HF183= 
-                      ifelse(HF183 < "3.329601", "no",
-                      ifelse(HF183 > "3.329602", "yes",
+                      ifelse(HF183 < "3.329601", "negative",
+                      ifelse(HF183 > "3.329602", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(HumM2= 
-                      ifelse(HumM2 < "3.847449", "no",
-                      ifelse(HumM2 > "3.847450", "yes",
+                      ifelse(HumM2 < "3.847449", "negative",
+                      ifelse(HumM2 > "3.847450", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(CG01= 
-                      ifelse(CG01 < "3.108565", "no",
-                      ifelse(CG01 > "3.108566", "yes",
+                      ifelse(CG01 < "3.108565", "negative",
+                      ifelse(CG01 > "3.108566", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(LeeSg= 
-                      ifelse(LeeSg < "3.283979", "no",
-                      ifelse(LeeSg > "3.283980", "yes",
+                      ifelse(LeeSg < "3.283979", "negative",
+                      ifelse(LeeSg > "3.283980", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(Dog3= 
-                      ifelse(Dog3 < "3.156549", "no",
-                      ifelse(Dog3 > "3.156550", "yes",
+                      ifelse(Dog3 < "3.156549", "negative",
+                      ifelse(Dog3 > "3.156550", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(MuBac= 
-                      ifelse(MuBac < "3.554852", "no",
-                      ifelse(MuBac > "3.554853", "yes",
+                      ifelse(MuBac < "3.554852", "negative",
+                      ifelse(MuBac > "3.554853", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(Rum2Bac= 
-                      ifelse(Rum2Bac < "3.457125", "no",
-                      ifelse(Rum2Bac > "3.457126", "yes",
+                      ifelse(Rum2Bac < "3.457125", "negative",
+                      ifelse(Rum2Bac > "3.457126", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(Salmonella_spp_InvA= 
-                      ifelse(Salmonella_spp_InvA < "3.170848", "no",
-                      ifelse(Salmonella_spp_InvA > "3.170849", "yes",
+                      ifelse(Salmonella_spp_InvA < "3.170848", "negative",
+                      ifelse(Salmonella_spp_InvA > "3.170849", "positive",
                       "no")))
 new_wq <- new_wq %>% mutate(Campylobacter_spp_Van_Dkye= 
-                      ifelse(Campylobacter_spp_Van_Dkye < "3.554852", "no",
-                      ifelse(Campylobacter_spp_Van_Dkye > "3.554853", "yes",
+                      ifelse(Campylobacter_spp_Van_Dkye < "3.554852", "negative",
+                      ifelse(Campylobacter_spp_Van_Dkye > "3.554853", "positive",
                       "no")))
 
 #water quality indicators
 new_wq <- new_wq %>% mutate(Enterococcus_CCE= 
-                      ifelse(Enterococcus_CCE < "3.102", "no",
-                      ifelse(Enterococcus_CCE > "3.103", "yes",
+                      ifelse(Enterococcus_CCE < "3.102", "negative",
+                      ifelse(Enterococcus_CCE > "3.103", "positive",
                       "no")))
 
-new_wq <- new_wq %>% mutate(thermo_coiforms= 
-                      ifelse(thermotolerant_coliforms < "2.602", "no",
-                      ifelse(thermotolerant_coliforms > "2.603", "yes",
+new_wq <- new_wq %>% mutate(thermotolerant_coiforms= 
+                      ifelse(thermotolerant_coliforms < "2.602", "negative",
+                      ifelse(thermotolerant_coliforms > "2.603", "positive",
                       "no")))
 clean_data_1 <- new_wq
 clean_data_1 <- new_wq
