@@ -555,6 +555,9 @@ Inlet_.75_entero_percent_bar <- ggplot(Inlet_.75, aes(x = Entero_y_n)) +
         ggtitle("Inlet 3/4") +
   theme_pubclean()
 Inlet_.75_entero_percent_bar
+McCall_entero_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site in McCall Lake" , nrow=2)
+ggsave(filename = "../../results/McCall_entero_percent_bar_sampling_site.png",plot = McCall_entero_percent_bar)
+
 
 #graph country Hills
 WP31A_entero_percent_bar <- ggplot(WP31A, aes(x = Entero_y_n)) +
@@ -602,6 +605,9 @@ WP31E_entero_percent_bar <- ggplot(WP31E, aes(x = Entero_y_n)) +
   theme_pubclean()
 WP31A_entero_percent_bar
 
+Country_sites_percent_bar <- grid.arrange( WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site in Country Hills" , nrow=2)
+ggsave(filename = "../../results/Country_Hills_entero_percent_bar_sampling_site.png",plot = Country_sites_percent_bar)
+
 #graph inverness
 outfall_inlet_entero_percent_bar <- ggplot(Outfall_Inlet, aes(x = Entero_y_n)) +
         geom_bar(aes(y = (..count..)/sum(..count..)), color = "#FF4500", fill = "#FF4500") +
@@ -635,6 +641,9 @@ WP26D_entero_percent_bar <- ggplot(WP26D, aes(x = Entero_y_n)) +
         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme_pubclean()
 WP26D_entero_percent_bar
+
+Inverness_sites_percent_bar <- grid.arrange(outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site in Inverness" , nrow=2)
+ggsave(filename = "../../results/Inverness_entero_percent_bar_sampling_site.png",plot = Inverness_sites_percent_bar)
 
 #arrange them all together
 sites_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site" , nrow=4)
