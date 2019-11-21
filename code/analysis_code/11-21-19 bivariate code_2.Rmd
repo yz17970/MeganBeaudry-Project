@@ -152,7 +152,7 @@ dev.off()
 #make two way table, computer row percents, save table
 xtabs(~Pond+thermo_y_n, data=new_wq)
 thermo_pond<- rowPerc(xtabs(~Pond+thermo_y_n, data=new_wq))
-png("../../results/thermo_pond_table.png", height=400, width=400)
+png("../../results/thermo_pond_table.rds", height=400, width=400)
 p<-tableGrob(thermo_pond)
 grid.arrange(p)
 dev.off()

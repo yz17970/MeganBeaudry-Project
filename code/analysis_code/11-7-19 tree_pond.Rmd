@@ -111,5 +111,5 @@ print(fit2$results)
 ```{r}
 pond_tree <- prp(fit2$finalModel, extra = 1, type = 1)
 ww=17.8/2.54; wh=ww;
-dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/pond_tree.png")
+dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/pond_tree_1a.png")
 ```

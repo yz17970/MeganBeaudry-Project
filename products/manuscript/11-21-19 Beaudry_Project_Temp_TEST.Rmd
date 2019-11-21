@@ -233,6 +233,10 @@ Moving back towards the top of tree we note that the third decision point is bas
 knitr::include_graphics("../../results/pond_tree_1a.png")
 ```
 
+```{r}
+mv <- readRDS("../../results/mv_2.rds")
+kable(mv, caption = "Table 1. How the different habitats are related to total pathogen")
+```
 
 
 # Discussion
