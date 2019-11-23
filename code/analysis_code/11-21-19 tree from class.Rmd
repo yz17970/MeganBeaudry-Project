@@ -274,6 +274,7 @@ fit2 = caret::train(A_butzleri_HSP60 ~ ., data=data_train_remove, method="ranger
 #needed to change the data to data_train_remove or else got an error message
 ```
 
+
 We can't plot a nice final tree anymore since the model is now a combination of trees. We can look at a plot of model performance as a function of the model tuning parameters. 
 
 ```{r randomforestresult, echo=TRUE}
