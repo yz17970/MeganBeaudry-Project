@@ -42,13 +42,22 @@ To run the processing code please go to the processing_code folder. This code cl
 
 __Analysis__ 
 _FIRST: Exploratory Analysis_
-First run the exploraty analysis code. Exploratory analysis code is saved under "10-31-19 exploratory analysis" as both an rmd and word document for viewing. This script focuses on looking at relationships between our pathogen of interest, Arcobacter butzleri and other contaminents or water quality indicators. These are not final figures, but rather an exploration of the data. 
+First run the exploraty analysis code. Exploratory analysis code is saved under "11-23-19 exploratory analysis" as both an rmd and word document for viewing. This script focuses on looking at relationships between our pathogen of interest, Arcobacter butzleri and other contaminents or water quality indicators. These are not final figures, but rather an exploration of the data. 
 
 _SECOND: Univariate Analysis_
-Second, run the "11-7-19 univariate analysis code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
+Second, run the "11-23-19 univariate analysis code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
 
 _THIRD: Bivaraite Analysis_
-Thrid, run the "11-12-19 bivariate code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
+Thrid, run the "11-13-19 bivariate code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
 
-_FOURTH: Tree_
-Fourth, run the "11-7-19 tree". This code will produce a random forest tree. It may take 5-15 minutes to run depending on your computer. This code includes a final random forest tree for the manuscript. 
+_FOURTH: Tree Pond_
+Fourth, run the "11-23-19 tree_pond_final". This code will produce a random forest tree. It may take 5-15 minutes to run depending on your computer. This code includes a final random forest tree for the manuscript. 
+
+_FIFTH: Arco Tree_
+Fifth, run the "11-23-19 arco_tree". This code will produce a random forest tree. It may take 5-15 minutes to run depending on your computer. This code includes a final random forest tree for the manuscript. 
+
+_SIXTH: Linear and Simple Models_
+Sixth, run the "11-23-19 linear and simple models" code to produce tables that contain information on linear and simple linears. 
+
+
+

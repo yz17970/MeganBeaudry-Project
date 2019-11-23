@@ -27,21 +27,27 @@ Processing code can be found in the code folder under the subfolder processing c
 _Analysis Code_
 Analysis code can be found in the folder code under the subfolder analysis code. This folder contains exploratory analysis, univariate analysis, bivariate analysis, and tree.
   _Exploratory Analysis_
-  Exploratory analysis is an rmd file titled "10-31-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in exploratory scripts are saved as png files under the folder results.
+  Exploratory analysis is an rmd file titled "11-23-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in exploratory scripts are saved as png files under the folder results.
   _Univariate Analysis_
-  Univariate analysis is an rmd file titled "11-7-19 exploratory analysis". Instructions for running the univariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  Univariate analysis is an rmd file titled "11-23-19 exploratory analysis". Instructions for running the univariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   _Bivariate Analysis_
-  Bivariate analysis is an rmd file titled "11-12-19 bivariate code". Instructions for running the bivariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
-  _Tree_
-  To make the regresssion tree run the rmd file titled "11-7-19 tree". Instructions for running the tree code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  Bivariate analysis is an rmd file titled "11-23-19 bivariate code". Instructions for running the bivariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  _Tree Pond_
+  To make the regresssion tree run the rmd file titled "11-23-19 tree pond". Instructions for running the tree code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  _Tree Arcobacter butzleri_
+  To make the regresssion tree run the rmd file titled "11-23-19 arco tree". Instructions for running the tree code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  _Linear and Simple Models_
+  To produce linear and simple models run the "11-23-19 linear and simple model" script. Instructions for running the code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   
 __Results__
 Opening the results folder will show all figures generates .png files or .rds files.
 
 __Products__
 _Manuscipt_
-To produce the manuscript, open the rmd titled "11-12-19 Beaudry_Project_Template." Knit to word document. 
+To produce the manuscript, open the rmd titled "11-23-19 Beaudry_Project_Template." Knit to word document. 
 
+_Supplemental Material_
+To produce the manuscript, open the rmd titled "11-23-19 supplmental material_A." Knit to word document. 
 
 _
 The final manuscript is in the products folder.

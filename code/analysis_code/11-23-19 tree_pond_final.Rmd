@@ -5,20 +5,14 @@ date: "11/7/2019"
 output: html_document
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
+Libraries
+Load the libraries
 ```{r}
 library('tidyr')
 library('dplyr')
@@ -35,9 +29,8 @@ library('e1071')
 library('visdat')
 ```
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Load the data
 
 ```{r}
 clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
@@ -70,20 +63,19 @@ data_test = clean_data_2[-trainset,]
 ```
 
 
-
-```{r}
+Null Model
+```{r null model}
 mlr::measureACC("McCall_Lake", data_train$Pond)
 ```
-
-```{r}
+Remove
+we want to remove sampling site as this is to closely related to pong
+```{r remove sampling slite}
 data_train_2 <- data_train %>% dplyr::select(-Sampling_Site)
 ```
 
 
-
-```{r}
-
-
+Lets start to build the tree now
+```{r single fit}
 #There is probably a nicer tidyverse way of doing this. I just couldn't think of it, so did it this way.
 set.seed(1111) #makes each code block reproducible
 outcomename = "Pond"
@@ -101,15 +93,21 @@ print(resultmat)
 ```
 
 #want accuracy to be around .7
-```{r Pond}
+```{r Pond full fit}
 set.seed(1111)
 fitControl <- trainControl(method="repeatedcv",number=5,repeats=5) 
 fit2 = caret::train(Pond  ~ ., data=data_train_2, method="rpart",  trControl = fitControl, na.action = na.pass, tuneLength = 20) 
 print(fit2$results)
 ```
-
-```{r}
+Time to build the final tree
+```{r Pond final tree}
 pond_tree <- prp(fit2$finalModel, extra = 1, type = 1)
 ww=17.8/2.54; wh=ww;
-dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/pond_tree_1a.png")
+dev.print(device=png,width=ww,height=wh,units="in",res=600,file="../../results/pond_tree.png")
+```
+
+
+```{r stop parallel}
+# shut down the parallel computing cluster we created at the beginning of the analysis
+stopCluster(cl)
 ```
