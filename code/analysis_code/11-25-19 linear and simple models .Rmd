@@ -1,0 +1,172 @@
+---
+title: "11-22-19 Linear model and full fit"
+author: "Megan Beaudry"
+date: "11/22/2019"
+output: html_document
+---
+```{r}
+library(xtable)
+library(caret)
+library('tigerstats')
+library('formattable')
+library('gridExtra')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Data Loading
+Load the data
+```{r loaddata}
+#Write code that loads the dataset 
+#You can of course re-use code you wrote in the other file.
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+clean_data <- clean_water_quality_data
+```
+
+## Data splitting 
+We split data into a train and tst set in order to save some of the data for final testing of the model. We will make all models with the test set. 
+ 
+
+```{r split-data}
+#this code does the data splitting. I still assume that your data is stored in the `d` object.
+#uncomment to run
+set.seed(123)
+#extract observations/rows for training, assign to new variable. 
+#Extracts 70% of the data into the trainset
+trainset <- caret::createDataPartition(y = clean_data$A_butzleri_HSP60 , p = 0.7, list = FALSE)
+#subsets out the dataset
+data_train = clean_data[trainset,] 
+#do the same for the test set
+data_test = clean_data[-trainset,] 
+```
+
+## Null model
+We will do a null model fit to begin, which is just th emean of the data. It gives us a baseline for performance. 
+
+```{r clean-na}
+#write code that computes the RMSE for a null model, which is just the mean of the outcome
+#remember that from now on until the end, everything happens with the training data
+mean(clean_data$A_butzleri_HSP60)
+```
+
+
+LINEAR MODEL - SIMPLE
+
+Linear models describe a continuous response variable as a function of one or more predictor variables. They can help you understand and predict the behavior of complex systems or analyze experimental, financial, and biological data.
+
+We want to see if other biological inputs can predict the presence of A. butzleri. We will focus on those that were found in the correlation plot, made in the bivariate analysis script. 
+```{r}
+#the website below was found to be useful 
+#http://r-statistics.co/Linear-Regression.html
+clean_data <- clean_water_quality_data
+linearMod_HF183 <- lm(A_butzleri_HSP60 ~ HF183, data = clean_data)
+print(linearMod_HF183)
+modelSummary <- summary(linearMod_HF183)
+
+linearMod_HumM2 <- lm(A_butzleri_HSP60 ~ HumM2, data = clean_data)
+linearMod_LeeSg <- lm(A_butzleri_HSP60 ~ LeeSg, data = clean_data)
+linearMod_CG01 <- lm(A_butzleri_HSP60 ~ CG01, data = clean_data)
+
+lm_log_HF183 = broom::tidy(linearMod_HF183)
+lm_log_HuMm2 = broom::tidy(linearMod_HumM2)
+lm_log_LeeSg = broom::tidy(linearMod_LeeSg)
+lm_log_CG01 = broom::tidy(linearMod_CG01)
+
+lm_variables = bind_rows(lm_log_HF183, lm_log_HuMm2, lm_log_LeeSg, lm_log_CG01)
+lm_variables = lm_variables %>% filter(term != "(Intercept)")
+
+saveRDS(lm_variables, file = "../../results/resulttable_lm.rds")
+
+lm_variables2 = bind_rows(lm_log_HF183, lm_log_HuMm2, lm_log_LeeSg, lm_log_CG01)
+
+lm_variables2 <- lm_variables2
+png("../../results/resulttable_lm_3.png", height=400, width=400)
+p<-tableGrob(lm_variables2)
+grid.arrange(p)
+dev.off()
+
+
+lm_variables <- lm_variables 
+png("../../results/resulttable_lm_2.png", height=400, width=400)
+p<-tableGrob(lm_variables)
+grid.arrange(p)
+dev.off()
+
+#p value is showing if that level within the facotr that you testing is a signifncat predictor our ooutcome 
+#if it less than .05 is has a signficiant affect on our outcome
+#HF183, HumM2 and LeeSg are all signficant predictors 
+```
+
+
+
+# Continous Outcome Analysis 
+We are going to select the varaibles that are continous. We are also only selecting qPCR data. 
+```{r remove NAs}
+remove <- clean_data %>% na.omit(HF183, HumM2, LeeSg, CG01, Rum2Bac, Dog3, MuBac, A_butzleri_HSP60, Campylobacter_spp_Van_Dkye, Salmonella_spp_InvA, Enterococcus_CCE)
+```
+
+```{r select only continoues, move to first row}
+only_contin <- remove %>% select(HF183, HumM2, LeeSg, CG01, Rum2Bac, Dog3, MuBac, A_butzleri_HSP60, Campylobacter_spp_Van_Dkye, Salmonella_spp_InvA, Enterococcus_CCE)
+
+```
+
+```{r move to first row}
+only_contin <- only_contin[, c(8,1,2,3,4,5,6,7,9,10,11)]
+```
+
+data: only_contin
+```{r load library}
+library(caret)
+```
+
+
+```{r split the data}
+set.seed(123)
+trainset = caret::createDataPartition(y = only_contin$A_butzleri_HSP60, p = 0.7, list = FALSE)
+data_train = only_contin[trainset,] #extract observations/rows for training, assign to new variable
+data_test = only_contin[-trainset,] #do the same for the test set
+```
+
+Null Model
+```{r null model}
+#Null model will be the mean of the outcome of interest
+data_train %>% summarize(mean = mean(A_butzleri_HSP60))
+```
+
+#Single Predictor Model
+
+
+
+```{r single predictor warning= FALSE}
+set.seed(1111) #makes each code block reproducible
+fitControl <- trainControl(method="repeatedcv",number=5,repeats=5) #setting CV method for caret
+Npred <- ncol(data_train)-1 # number of predictors
+resultmat <- data.frame(Variable = names(data_train)[-1], RMSE = rep(0,Npred)) 
+#store values for RMSE for each variable
+for (n in 2:ncol(data_train)) #loop over each predictor. For this to work, outcome must be in 1st column
+{
+  fit1 <- train(as.formula(paste("A_butzleri_HSP60 ~",names(data_train)[n])), 
+                data = data_train, method = "lm", trControl = fitControl) 
+  resultmat[n-1,2]= fit1$results$RMSE  
+}
+print(resultmat)
+```
+So this worked only after several tries. I had to make go back and use NA omit. I believe the culprit there was some of the Enterococcus CCE data. I also had to reorder the data, as Arcobacter was not in the first column. That produced an error message. 
+
+Multi- Predictor Model
+```{r multi predictor}
+set.seed(1111) #makes each code block reproducible
+#write code that uses the train function in caret to fit the outcome to all predictors using the 3 methods specified.
+
+fitControl <- trainControl(method="repeatedcv",number=5,repeats=5) #setting CV method for caret
+
+linear_model = train(A_butzleri_HSP60 ~ ., data = data_train, method = "lm", trControl = fitControl)
+print(linear_model)
+
+
+```
+
+#Multipredictor Model
+

@@ -504,3 +504,9 @@ library('gbm')
 #gbmGrid <- expand.grid(interaction.depth = seq(1, 7, by = 2), n.trees = 300, shrinkage = c(0.1, 0.01), n.minobsinnode = c(2,4,6))
 #fit3 = caret::train(arco_y_n ~ ., data=data_train_remove, method="gbm", trControl = fitControl, verbose=FALSE, tuneGrid = gbmGrid) 
 ```
+
+
+```{r stop parallel}
+# shut down the parallel computing cluster we created at the beginning of the analysis
+stopCluster(cl)
+```
