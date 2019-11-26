@@ -150,7 +150,7 @@ knitr::include_graphics("../../results/McCall_bysite_box_HF183.png")
 Temporal fluctuations in human fecal pollution markers were noted between the stormwater ponds, and among the sampling sites within a stormwater pond (Figure 9). 
 
 
-```{r warning=FALSE,echo=FALSE, fig.cap= "Temporal pattern of occurrence HF183 log10 concentrations at all sampling sites in McCall Lake (top), Country Hills (middle), and Inverness (botton) over the 21-week sampling season. The limit of quantification95 (LOQ95) as a black dotted line. The black arrows represent long holiday weekends."}
+```{r warning=FALSE,echo=FALSE, fig.cap= "Temporal pattern of occurrence HF183 log10 concentrations at all sampling sites in McCall Lake (top), Country Hills (middle), and Inverness (bottom) over the 21-week sampling season. The limit of quantification95 (LOQ95) as a black dotted line. The black arrows represent long holiday weekends."}
 knitr::include_graphics("../../results/HF183_all_arranged.png")
 ```
 
@@ -203,7 +203,7 @@ Due to the prevalence and abundance of _A. butzleri_ contamination, we sought to
 
 
 
-```{r echo=FALSE}
+```{r echo=FALSE fig.cap = "Correlation plot of potential sources of A. butzleri."}
 knitr::include_graphics("../../results/corrplot_arco_human_bird.png")
 ```
 Several linear models were run in order to test the hypothesis that the source of fecal material in stormwater ponds would affect _A. butzleri_. Based on previous analyses, linear models were only run ont the most abundant microbial source tracking markers (i.e., HF183, HumM2, LeeSg, and CG01) (Figure 15). The linear model for human fecal contamination (i.e., HF183 and HumM2), rejects the null hypotheses based on p-value. This indicates thats human fecal material is a signifant predictor of our enteric bacterial pathogen, _A. butzleri_. Combining this with the correlation plot previously presented, and temporal occurance plots previously shown, we can suggest that HF183 and HumM2 affect _A. butzleri_ contamination, which be discussed later on. In addition, we reject the null hypothesis for LeeS, which also aligns with our correlation plot and temporal occurance plots. However, we were not able to reject the null hypothesis for CG01 as the p-value is greater than .05. This also aligns with our previous analysis, as this outcome was least associated to our predictor _A. butzleri_.
