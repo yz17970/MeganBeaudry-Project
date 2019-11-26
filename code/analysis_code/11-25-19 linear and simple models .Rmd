@@ -164,9 +164,12 @@ fitControl <- trainControl(method="repeatedcv",number=5,repeats=5) #setting CV m
 
 linear_model = train(A_butzleri_HSP60 ~ ., data = data_train, method = "lm", trControl = fitControl)
 print(linear_model)
+print(linear_model$finalModel)
 
 
 ```
+```{r estimate skill validation}
+#https://machinelearningmastery.com/finalize-machine-learning-models-in-r/
+```
 
-#Multipredictor Model
 
