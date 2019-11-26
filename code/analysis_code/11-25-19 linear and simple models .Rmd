@@ -128,7 +128,15 @@ trainset = caret::createDataPartition(y = only_contin$A_butzleri_HSP60, p = 0.7,
 data_train = only_contin[trainset,] #extract observations/rows for training, assign to new variable
 data_test = only_contin[-trainset,] #do the same for the test set
 ```
+PARALLELIZATION
+We want to use mutliple processors, which the code below will allow us to do.
 
+We want to use mutliple processors, which the code below will allow us to do.
+```{r parallel}
+n_cores <- 4 #number of cores to use
+cl <- makePSOCKcluster(n_cores)
+registerDoParallel(cl) #comment out this line if you don't want parallel computing
+```
 Null Model
 ```{r null model}
 #Null model will be the mean of the outcome of interest
@@ -169,7 +177,11 @@ print(linear_model$finalModel)
 
 ```
 ```{r estimate skill validation}
+#Still working on trying to figure this out. We shall see if it happens by the course deadline.
 #https://machinelearningmastery.com/finalize-machine-learning-models-in-r/
 ```
 
-
+```{r stop parallel}
+# shut down the parallel computing cluster we created at the beginning of the analysis
+stopCluster(cl)
+```

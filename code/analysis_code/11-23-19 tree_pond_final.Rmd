@@ -62,6 +62,15 @@ data_train = clean_data_2[trainset,]
 data_test = clean_data_2[-trainset,] 
 ```
 
+PARALLELIZATION
+We want to use mutliple processors, which the code below will allow us to do.
+
+We want to use mutliple processors, which the code below will allow us to do.
+```{r parallel}
+n_cores <- 4 #number of cores to use
+cl <- makePSOCKcluster(n_cores)
+registerDoParallel(cl) #comment out this line if you don't want parallel computing
+```
 
 Null Model
 ```{r null model}
@@ -88,8 +97,6 @@ for (n in 2:ncol(data_train_2)) #loop over each predictor. For this to work, out
 resultmat[n-1,2]= max(fit1$results$Accuracy)  
 }
 print(resultmat)
-
-#In order to get this code to work i had to specify the carett:: package
 ```
 
 #want accuracy to be around .7
