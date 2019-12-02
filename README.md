@@ -27,7 +27,7 @@ Processing code can be found in the code folder under the subfolder processing c
 _Analysis Code_
 Analysis code can be found in the folder code under the subfolder analysis code. This folder contains exploratory analysis, univariate analysis, bivariate analysis, and tree.
   _Exploratory Analysis_
-  Exploratory analysis is an rmd file titled "11-23-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in exploratory scripts are saved as png files under the folder results.
+  Exploratory analysis is an rmd file titled "11-29-19 exploratory analysis". Instructions for running the exploratory analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in exploratory scripts are saved as png files under the folder results.
   _Univariate Analysis_
   Univariate analysis is an rmd file titled "11-23-19 exploratory analysis". Instructions for running the univariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   _Bivariate Analysis_
