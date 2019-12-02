@@ -1,0 +1,70 @@
+---
+title: "11-29-19 Exploratory Analysis"
+author: "Megan Beaudry"
+date: "12/2/2019"
+output: html_document
+---
+
+---
+title: "10-16-19 exploratory analysis"
+author: "Megan Beaudry"
+date: "10/8/2019"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exploratory Analysis {.tabset}
+
+
+
+##Prelimnary Loading
+
+Load clean data
+```{r}
+clean_water_quality_data <- readRDS("../../data/processed_data/clean_water_quality_data.rds")
+```
+
+Load libraries
+```{r}
+library(ggplot2)
+library(ggthemes)
+library(RColorBrewer)
+library(dplyr)
+```
+
+##Exploratory Analysis - Summary Statistics
+```{r}
+summary(clean_water_quality_data$Rainfall)
+summary(clean_water_quality_data$HF183)
+summary(clean_water_quality_data$HumM2)
+summary(clean_water_quality_data$CG01)
+summary(clean_water_quality_data$LeeSg)
+summary(clean_water_quality_data$Dog3)
+summary(clean_water_quality_data$MuBac)
+summary(clean_water_quality_data$Rum2Bac)
+summary(clean_water_quality_data$A_butlzeri_HSP60)
+summary(clean_water_quality_data$Salmonella_spp_InvA)
+summary(clean_water_quality_data$Campylobacter_spp_Van_Dkye)
+summary(clean_water_quality_data$Enterococcus_CCE)
+summary(clean_water_quality_data$total_coliforms)
+summary(clean_water_quality_data$E_coli)
+summary(clean_water_quality_data$Enteroalert)
+summary(clean_water_quality_data$thermotolerant_coliforms)
+```
+
+##Exploratory Analysis - Temporal Trends
+
+*Temporal Trends All Pond Comparison*
+Comparison with traditional water quality indicators and Arco.
+I am really unhappy with this figure. I need to brainstorm a better way to represent data
+```{r}
+ggplot(clean_water_quality_data) + 
+  geom_line(mapping = aes(x = Date_Sampled, y = A_butzleri_HSP60), color = "navy") +
+  geom_bar(mapping = aes(x = Date_Sampled, y = Enterococcus_CCE), color = "purple", stat = "identity") + 
+  ylab("CCE")
+```
