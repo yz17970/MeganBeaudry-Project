@@ -557,7 +557,7 @@ Inlet_.75_entero_percent_bar <- ggplot(Inlet_.75, aes(x = Entero_y_n)) +
   theme_pubclean()
 Inlet_.75_entero_percent_bar
 
-McCall_Title <- expression(paste("Frequency of Occurance of Water Quality Failures by Sampling Site in McCall Lake"))
+McCall_Title <- expression(paste("Water Quality Failures in McCall Lake"))
                            
 McCall_entero_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, top=textGrob(McCall_Title, gp=gpar(fontsize=9,font=8)), nrow=2)
 ggsave(filename = "../../results/McCall_entero_percent_bar_sampling_site.png",plot = McCall_entero_percent_bar)
@@ -609,7 +609,7 @@ WP31E_entero_percent_bar <- ggplot(WP31E, aes(x = Entero_y_n)) +
   theme_pubclean()
 WP31A_entero_percent_bar
 
-Country_sites_percent_bar <- grid.arrange( WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site in Country Hills" , nrow=2)
+Country_sites_percent_bar <- grid.arrange( WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, top = "Water Quality Failures in Country Hills" , nrow=2)
 ggsave(filename = "../../results/Country_Hills_entero_percent_bar_sampling_site.png",plot = Country_sites_percent_bar)
 
 #graph inverness
@@ -646,11 +646,11 @@ WP26D_entero_percent_bar <- ggplot(WP26D, aes(x = Entero_y_n)) +
   theme_pubclean()
 WP26D_entero_percent_bar
 
-Inverness_sites_percent_bar <- grid.arrange(outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site in Inverness" , nrow=2)
+Inverness_sites_percent_bar <- grid.arrange(outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Water Quality Failures in Inverness" , nrow=2)
 ggsave(filename = "../../results/Inverness_entero_percent_bar_sampling_site.png",plot = Inverness_sites_percent_bar)
 
 #arrange them all together
-sites_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Frequency of Occurance of Water Quality Failures by Sampling Site" , nrow=4)
+sites_percent_bar <- grid.arrange(ML2_Entero_percent_bar, ML1_entero_percent_bar, PR60_entero_percent_bar, Inlet_.75_entero_percent_bar, WP31A_entero_percent_bar, WP31B_entero_percent_bar, WP31C_entero_percent_bar, WP31D_entero_percent_bar, WP31E_entero_percent_bar, outfall_inlet_entero_percent_bar, WP26B_entero_percent_bar, WP26C_entero_percent_bar, WP26D_entero_percent_bar, top = "Water Quality Failures by Sampling Site" , nrow=4)
 ggsave(filename = "../../results/entero_percent_bar_sampling_site.png",plot = sites_percent_bar)
 ```
 
@@ -878,8 +878,18 @@ Inverness_sal_percent_bar <- ggplot(Inverness_2, aes(x = Salmonella_y_n)) +
   theme_pubclean()
 Inverness_sal_percent_bar
 
-arco_percent_bar <- grid.arrange(McCall_arco_percent_bar, Country_arco_percent_bar, Inverness_arco_percent_bar, McCall_campy_percent_bar, Country_campy_percent_bar, Inverness_campy_percent_bar, McCall_sal_percent_bar, Country_sal_percent_bar, Inverness_sal_percent_bar, nrow = 3, top= "Pathogens in Stormwater Ponds")
+all_percent_bar <- grid.arrange(McCall_arco_percent_bar, Country_arco_percent_bar, Inverness_arco_percent_bar, McCall_campy_percent_bar, Country_campy_percent_bar, Inverness_campy_percent_bar, McCall_sal_percent_bar, Country_sal_percent_bar, Inverness_sal_percent_bar, nrow = 3, top= "Pathogens in Stormwater Ponds")
+ggsave(filename = "../../results/all_percent_bar.png",plot = all_percent_bar)
+
+
+arco_percent_bar <- grid.arrange(McCall_arco_percent_bar, Country_arco_percent_bar, Inverness_arco_percent_bar, top= "Pathogens in Stormwater Ponds")
 ggsave(filename = "../../results/arco_percent_bar.png",plot = arco_percent_bar)
+
+campy_percent_bar <- grid.arrange(McCall_campy_percent_bar, Country_campy_percent_bar, Inverness_campy_percent_bar, top= "Pathogens in Stormwater Ponds")
+ggsave(filename = "../../results/campy_percent_bar.png",plot = campy_percent_bar)
+
+Sal_percent_bar <- grid.arrange( McCall_sal_percent_bar, Country_sal_percent_bar, Inverness_sal_percent_bar, top= "Pathogens in Stormwater Ponds")
+ggsave(filename = "../../results/sal_percent_bar.png",plot = Sal_percent_bar)
 ```
 
 # LINE GRAPHS

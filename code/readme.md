@@ -48,7 +48,7 @@ _SECOND: Univariate Analysis_
 Second, run the "11-23-19 univariate analysis code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
 
 _THIRD: Bivaraite Analysis_
-Thrid, run the "11-26-19 bivariate code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
+Thrid, run the "12-2-19 bivariate code". This code will save all univariate figures in the results folder. This includes final figures and tables for the maniscript.
 
 _FOURTH: Tree Pond_
 Fourth, run the "11-23-19 tree_pond_final". This code will produce a random forest tree. It may take 5-15 minutes to run depending on your computer. This code includes a final random forest tree for the manuscript. 

@@ -31,7 +31,7 @@ Analysis code can be found in the folder code under the subfolder analysis code.
   _Univariate Analysis_
   Univariate analysis is an rmd file titled "11-23-19 exploratory analysis". Instructions for running the univariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   _Bivariate Analysis_
-  Bivariate analysis is an rmd file titled "11-26-19 bivariate code". Instructions for running the bivariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
+  Bivariate analysis is an rmd file titled "12-2-19 bivariate code". Instructions for running the bivariate analysis code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   _Tree Pond_
   To make the regresssion tree run the rmd file titled "11-23-19 tree pond". Instructions for running the tree code can be found in the ReadMe file in the folder code. All figures of interest generated in the scripts are saved as png files under the folder results.
   _Tree Arcobacter butzleri_
@@ -44,7 +44,7 @@ Opening the results folder will show all figures generates .png files or .rds fi
 
 __Products__
 _Manuscipt_
-To produce the manuscript, open the rmd titled "11-23-19 Beaudry_Project_Template." Knit to word document. 
+To produce the manuscript, open the rmd titled "12-2-19 Beaudry_Project_Template." Knit to word document. 
 
 _Supplemental Material_
 To produce the manuscript, open the rmd titled "11-23-19 supplmental material_A." Knit to word document. 
