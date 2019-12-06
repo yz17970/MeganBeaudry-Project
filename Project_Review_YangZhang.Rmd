@@ -1,0 +1,83 @@
+# Overview
+
+Title of project: Bacterial Sources of Pollution in Urban Stormwater Impacted Bodies of Water
+
+Author of project: Megan Beaudry
+
+## Background, Context and Motivation
+Background information is well-described. Knowledge gap is identified, and question is clearly proposed. However, I feel the introduction can be much more concise and focused. 
+
+### Summary assessment
+* strong contextualization and motivation
+
+## Question description
+Question is well described. Author points out the knowledge gap, and I can see what the significance behind the study. 
+
+### Summary assessment
+* question/hypotheses fully clear
+
+## Data description
+Data acquisition and approaches were described in detail. It feels like the author is providing her protocol here. It is a good thing, but the problem could be too detailed? For example, the thermal cycling condition is not necessary, I guess. And the readers don’t need to know how you made your qPCR standards.
+
+### Summary assessment
+* source and overall structure of data well explained
+
+## Data wrangling and exploratory analysis
+It is very nice that the author could collect her own data and use it to answer some specific questions. The majority part is well-explained. There is a minor issue: it is very nice here that the author provided why she chose to use a specific graph to visualize the results. But this part may not fit into the “Statistical Methods” section. 
+Meaningful explaoratory results are shown in the supplementary materials. 
+
+### Summary assessment
+* essentially no weaknesses in wrangling and exploratory component
+
+## Appropriateness of Analysis
+Different analysis methods were used in the paper. They are presented and explained well. 
+
+### Summary assessment
+* strong and reasonable analysis
+
+## Presentation
+Overall, a lot of figures are shown. Most are easy to read and understand. It is better to explain some of the figure legends. Just to be picky, the fonts are not very consistnt acorss the figures. And too many colors are used in your figures. Figure panels can be stacked in a better way in one figure, which make it look nicer. 
+
+### Summary assessment
+* results are presented ok, with room for improvement
+
+## Discussion/Conclusions
+Study findings are properly discussed. It is very nice that the author compared her findings to previous studies. Her Interpretations make sense to me. Strengths and limitations are acknowledged. 
+
+
+### Summary assessment
+* strong, complete and clear discussion
+
+
+# Overall project content evaluation
+
+## Structure
+The project is well structured. All necessary files are in correct folders. Need to remove files from the templates. They are not part of your project. 
+
+### Summary assessment
+* mostly clear, but some confusing parts (e.g. useless files, things in the wrong folders)
+* well structured
+
+
+## Documentation 
+The project is well-documented. Comments are provided in code for better udnerstanding of the reader. 
+
+### Summary assessment
+* fully and well documented
+
+
+## Reproducibility
+All results can be reproducible. 
+
+
+### Summary assessment
+* fully reproducible without issues
+
+
+## Thoroughness
+Overall, it is thorough. Alternative approaches are discussed in the paper. Hypotheses are fully addressed by the results. 
+
+### Summary assessment
+* strong level of thorougness
+
+
